@@ -1,0 +1,36 @@
+version: "3"
+services:
+  #mssql docker
+  epozoriste-sql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWElkj132!
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+        - 1433
+    networks:
+      - epozoristenet
+
+  epozoriste-api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=epozoriste-sql,1433;Database=ePozoriste;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True;
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5192:5192
+    networks:
+      - epozoristenet
+    links:
+      - epozoriste-sql
+    depends_on:
+      - epozoriste-sql
+
+networks:
+  epozoristenet:
+    driver: bridge
