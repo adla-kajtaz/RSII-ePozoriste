@@ -1,5 +1,19 @@
 version: "3"
 services:
+  rabbitMQ:
+   image: rabbitmq:3-management
+   container_name: 'rabbitmq_container'
+   environment:
+    - RABBITMQ_DEFAULT_USER=guest
+    - RABBITMQ_DEFAULT_PASS=guest
+   ports:
+    - 8050:15672
+    - 5672:5672
+   expose:
+    - 5672
+   networks: 
+    - epozoristenet 
+
   #mssql docker
   epozoriste-sql:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -22,6 +36,10 @@ services:
     environment:
       - ConnectionStrings:DefaultConnection=Server=epozoriste-sql,1433;Database=ePozoriste;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True;
       - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
     ports:
       - 5192:5192
     networks:
@@ -30,6 +48,7 @@ services:
       - epozoriste-sql
     depends_on:
       - epozoriste-sql
+      - rabbitMQ
 
 networks:
   epozoristenet:

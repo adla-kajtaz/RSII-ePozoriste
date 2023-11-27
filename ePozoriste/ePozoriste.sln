@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ePozoriste.Model", "..\ePoz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ePozoriste.Services", "..\ePozoriste.Services\ePozoriste.Services.csproj", "{62E04521-DE60-494C-A7BB-6B6BABA20FCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePozoriste.Subscriber", "..\ePozoriste.Subscriber\ePozoriste.Subscriber.csproj", "{8A58E873-D860-4097-8B5D-615D03765FD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{62E04521-DE60-494C-A7BB-6B6BABA20FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62E04521-DE60-494C-A7BB-6B6BABA20FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62E04521-DE60-494C-A7BB-6B6BABA20FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A58E873-D860-4097-8B5D-615D03765FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A58E873-D860-4097-8B5D-615D03765FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A58E873-D860-4097-8B5D-615D03765FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A58E873-D860-4097-8B5D-615D03765FD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

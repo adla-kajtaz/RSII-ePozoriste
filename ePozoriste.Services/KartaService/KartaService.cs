@@ -1,19 +1,28 @@
 ﻿using AutoMapper;
+using EasyNetQ;
 using ePozoriste.Model.Requests;
 using ePozoriste.Model.SearchObjects;
 using ePozoriste.Services.BaseService;
 using ePozoriste.Services.Database;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ePozoriste.Services
 {
     public class KartaService : BaseCRUDService<Model.Karta, Database.Kartum, KartaSearchObject, KartaInsertRequest, KartaInsertRequest>, IKartaService
     {
+        private readonly string hostname = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitMQ";
+        private readonly string username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
+        private readonly string password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
+        private readonly string virtualHost = Environment.GetEnvironmentVariable("RABBITMQ_VIRTUALHOST") ?? "/";
+
         public KartaService(ePozoristeContext context, IMapper mapper) : base(context, mapper)
         {
 
@@ -69,6 +78,32 @@ namespace ePozoriste.Services
                     kupovina.Placena = true;
             }
             _context.SaveChanges();
+
+            var factory = new ConnectionFactory
+            {
+                HostName = hostname,
+                UserName = username,
+                Password = password,
+                VirtualHost = virtualHost,
+            };
+
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
+
+            channel.QueueDeclare(queue: "nova_kupovina",
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false, //true
+                                 arguments: null);
+
+
+            var json = JsonConvert.SerializeObject(kupovina);
+
+            var body = Encoding.UTF8.GetBytes(json);
+
+            channel.BasicPublish(exchange: string.Empty,
+                                 routingKey: "nova_kupovina",
+                                 body: body);
             return _mapper.Map<Model.Karta>(entity);
         }
 
