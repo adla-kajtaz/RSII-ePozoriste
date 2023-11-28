@@ -67,7 +67,7 @@ namespace ePozoriste.Services
         public Model.Karta ChangeStatus(int id, int KupovinaId)
         {
             var entity = _context.Karta.Find(id);
-            var kupovina = _context.Kupovinas.Find(KupovinaId);
+            var kupovina = _context.Kupovinas.Include(x=>x.Korisnik).FirstOrDefault(x=> x.KupovinaId == KupovinaId);
             if (entity == null)
                 return null;
             else
