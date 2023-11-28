@@ -50,6 +50,27 @@ services:
       - epozoriste-sql
       - rabbitMQ
 
+  rabbitmq-service:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./ePozoriste.Subscriber/Dockerfile
+    environment:
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
+      - OUTLOOK_MAIL=epozoriste@outlook.com
+      - OUTLOOK_PASS=Test-Test123!
+    depends_on:
+      - rabbitMQ
+      - epozoriste-sql
+      - epozoriste-api
+    networks:
+      - epozoristenet
+    ports:
+      - 7101:80
+
 networks:
   epozoristenet:
     driver: bridge

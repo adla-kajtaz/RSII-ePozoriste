@@ -60,6 +60,7 @@ builder.Services.AddTransient<IKartaService, KartaService>();
 builder.Services.AddTransient<IKupovinaService, KupovinaService>();
 builder.Services.AddTransient<IKorisnikService, KorisnikService>();
 builder.Services.AddTransient<IKorisnikUlogeService, KorisnikUlogeService>();
+builder.Services.AddTransient<INotificationProducer, NotificationProducer>();
 builder.Services.AddTransient<StripeService>();
 
 

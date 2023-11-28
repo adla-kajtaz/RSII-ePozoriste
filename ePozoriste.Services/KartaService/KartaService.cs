@@ -13,19 +13,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using ePozoriste.Model;
 
 namespace ePozoriste.Services
 {
     public class KartaService : BaseCRUDService<Model.Karta, Database.Kartum, KartaSearchObject, KartaInsertRequest, KartaInsertRequest>, IKartaService
     {
-        private readonly string hostname = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitMQ";
-        private readonly string username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
-        private readonly string password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
-        private readonly string virtualHost = Environment.GetEnvironmentVariable("RABBITMQ_VIRTUALHOST") ?? "/";
+        private readonly INotificationProducer _notificationProducer;
 
-        public KartaService(ePozoristeContext context, IMapper mapper) : base(context, mapper)
+        public KartaService(ePozoristeContext context, IMapper mapper, INotificationProducer notificationProducer) : base(context, mapper)
         {
-
+            _notificationProducer = notificationProducer;
         }
 
         public override IQueryable<ePozoriste.Services.Database.Kartum> AddInclude(IQueryable<ePozoriste.Services.Database.Kartum> query, KartaSearchObject search = null)
@@ -67,7 +65,7 @@ namespace ePozoriste.Services
         public Model.Karta ChangeStatus(int id, int KupovinaId)
         {
             var entity = _context.Karta.Find(id);
-            var kupovina = _context.Kupovinas.Include(x=>x.Korisnik).FirstOrDefault(x=> x.KupovinaId == KupovinaId);
+            var kupovina = _context.Kupovinas.Include(x=>x.Korisnik).Include(x=>x.Termin).ThenInclude(x=>x.Predstava).FirstOrDefault(x=> x.KupovinaId == KupovinaId);
             if (entity == null)
                 return null;
             else
@@ -79,31 +77,14 @@ namespace ePozoriste.Services
             }
             _context.SaveChanges();
 
-            var factory = new ConnectionFactory
+            KupovinaNotifikacija kupovinaNot = new KupovinaNotifikacija
             {
-                HostName = hostname,
-                UserName = username,
-                Password = password,
-                VirtualHost = virtualHost,
+                KupovinaNotifikacijaId = kupovina.KupovinaId,
+                NazivPredstave = kupovina.Termin.Predstava.Naziv,
+                Email = kupovina.Korisnik.Email
             };
+            _notificationProducer.SendingObject(kupovinaNot);
 
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-
-            channel.QueueDeclare(queue: "nova_kupovina",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false, //true
-                                 arguments: null);
-
-
-            var json = JsonConvert.SerializeObject(kupovina);
-
-            var body = Encoding.UTF8.GetBytes(json);
-
-            channel.BasicPublish(exchange: string.Empty,
-                                 routingKey: "nova_kupovina",
-                                 body: body);
             return _mapper.Map<Model.Karta>(entity);
         }
 
