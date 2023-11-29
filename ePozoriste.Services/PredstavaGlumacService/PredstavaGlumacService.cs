@@ -37,5 +37,27 @@ namespace ePozoriste.Services
                 filteredQuery = filteredQuery.Where(x => x.GlumacId == search.GlumacId);
             return filteredQuery;
         }
+
+        public override Model.PredstavaGlumac Delete(int id)
+        {
+            var entity = _context.PredstavaGlumacs.Find(id);
+            var glumci = _context.PredstavaGlumacs.Where(e => e.PredstavaId == entity!.PredstavaId).ToList();
+
+            if (entity == null)
+            {
+                return null;
+            }
+            else if (glumci.Count() == 1)
+            {
+                return null;
+            }
+            else
+            {
+                _context.PredstavaGlumacs.Remove(entity);
+            }
+
+            _context.SaveChanges();
+            return _mapper.Map<Model.PredstavaGlumac>(entity);
+        }
     }
 }
