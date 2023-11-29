@@ -13,6 +13,8 @@ namespace ePozoriste.Model.Requests
         public string Naziv { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [MinLength(5, ErrorMessage = "Postanski broj mora imati 5 karaktera!")]
+        [MaxLength(5, ErrorMessage = "Postanski broj mora imati 5 karaktera!")]
         public string PostanskiBr { get; set; }
 
         [Required]

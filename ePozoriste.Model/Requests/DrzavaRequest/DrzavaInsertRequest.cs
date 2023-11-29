@@ -13,6 +13,7 @@ namespace ePozoriste.Model.Requests
         public string Naziv { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [MaxLength(3, ErrorMessage = "Skracenica moze sadrzavati najvise 3 karaktera!")]
         public string Skracenica { get; set; }
     }
 }
