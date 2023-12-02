@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ePozoriste.Model;
 using ePozoriste.Model.Requests;
 using ePozoriste.Model.SearchObjects;
 using ePozoriste.Services.BaseService;
@@ -49,7 +50,7 @@ namespace ePozoriste.Services
             }
             else if (glumci.Count() == 1)
             {
-                return null;
+                throw new KorisnikException("Upozorenje","Ne mozete obrisati glumca, predstava mora imati bar jednog glumca");
             }
             else
             {

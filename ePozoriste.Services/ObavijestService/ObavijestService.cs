@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ePozoriste.Services
 {
-    public class ObavijestService : BaseCRUDService<Model.Obavijest, Database.Obavijest, ObavijestSearchObject, ObavijestInsertRequest, ObavijestInsertRequest>, IObavijestService
+    public class ObavijestService : BaseCRUDService<Model.Obavijest, Database.Obavijest, ObavijestSearchObject, ObavijestInsertRequest, ObavijestUpdateRequest>, IObavijestService
     {
         public ObavijestService(ePozoristeContext context, IMapper mapper) : base(context, mapper)
         {

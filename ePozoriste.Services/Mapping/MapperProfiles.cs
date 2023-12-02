@@ -35,6 +35,7 @@ namespace ePozoriste.Services.Mapping
             CreateMap<GradInsertRequest, Database.Grad>();
             CreateMap<ObavijestKategorijaInsertRequest, Database.ObavijestKategorija>();
             CreateMap<ObavijestInsertRequest, Database.Obavijest>();
+            CreateMap<ObavijestUpdateRequest, Database.Obavijest>();
             CreateMap<PozoristeInsertRequest, Database.Pozoriste>();
             CreateMap<SalaInsertRequest, Database.Sala>();
             CreateMap<VrstaPredstaveInsertRequest, Database.VrstaPredstave>();
@@ -47,8 +48,6 @@ namespace ePozoriste.Services.Mapping
             CreateMap<KorisnikInsertRequest, Database.Korisnik>();
             CreateMap<KorisnikUpdateRequest, Database.Korisnik>();
             CreateMap<KorisnikUlogeInsertRequest, Database.KorisnikUloge>();
-
-
 
         }
     }
