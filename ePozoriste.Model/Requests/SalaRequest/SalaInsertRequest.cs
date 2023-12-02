@@ -13,9 +13,6 @@ namespace ePozoriste.Model.Requests
         public string Naziv { get; set; }
 
         [Required]
-        public int BrSjedista { get; set; }
-
-        [Required]
         public int BrRedova { get; set; }
 
         [Required]

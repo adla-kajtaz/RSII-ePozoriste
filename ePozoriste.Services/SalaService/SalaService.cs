@@ -36,6 +36,35 @@ namespace ePozoriste.Services
             return filteredQuery;
         }
 
+        public override Model.Sala Insert(SalaInsertRequest request)
+        {
+            Database.Sala sala = new Database.Sala();
+            sala.Naziv = request.Naziv;
+            sala.BrRedova = request.BrRedova;
+            sala.BrSjedistaPoRedu = request.BrSjedistaPoRedu;
+            sala.BrSjedista = request.BrRedova * request.BrSjedistaPoRedu;
+            _context.Add(sala);
+            _context.SaveChanges();
+            return _mapper.Map<Model.Sala>(sala);
+        }
+
+        public override Model.Sala Update(int id, SalaInsertRequest request)
+        {
+            var entity = _context.Salas.Find(id);
+
+            if (entity != null)
+            {
+                entity.BrSjedista = request.BrRedova * request.BrSjedistaPoRedu;
+                _mapper.Map(request, entity);
+            }
+            else
+            {
+                return null;
+            }
+            _context.SaveChanges();
+            return _mapper.Map<Model.Sala>(entity);
+        }
+
         public override Model.Sala Delete(int id)
         {
             var entity = _context.Salas.Find(id);
