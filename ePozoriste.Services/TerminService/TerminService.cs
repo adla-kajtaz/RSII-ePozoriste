@@ -125,11 +125,11 @@ namespace ePozoriste.Services
 
             if (karte == null)
             {
-                throw new Exception("Ne postoje karte");
+                throw new SalaException("Ne mozete obrisati", "Ne postoje karte za ovaj termin!");
             }
             else if(brojac != 0)
             {
-                throw new Exception("Ne možete obrisati karte, jer su neke već kupljene!");
+                throw new SalaException("Ne mozete obrisati", "Ne možete obrisati karte, jer su neke već kupljene!");
             }
             else
             {
