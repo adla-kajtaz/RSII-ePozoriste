@@ -12,5 +12,6 @@ namespace ePozoriste.Services
     public interface ITerminService : IBaseCRUDService<Model.Termin, TerminSearchObject, TerminInsertRequest, TerminInsertRequest>
     {
         public List<Model.Termin> TerminRecommenderSystem(int userId);
+        public void ObrisiKarte(int id);
     }
 }

@@ -118,6 +118,29 @@ namespace ePozoriste.Services
             return _mapper.Map<Model.Termin>(entity);
         }
 
+        public void ObrisiKarte(int id)
+        {
+            var karte = _context.Karta.Where(e => e.TerminId == id).ToList();
+            var brojac = karte.Where(e => e.Aktivna == false).Count();
+
+            if (karte == null)
+            {
+                throw new Exception("Ne postoje karte");
+            }
+            else if(brojac != 0)
+            {
+                throw new Exception("Ne možete obrisati karte, jer su neke već kupljene!");
+            }
+            else
+            {
+                for (int i = 0; i < karte.Count; i++)
+                {
+                    _context.Karta.Remove(karte[i]);
+                }
+            }
+            _context.SaveChanges();
+        }
+
         static object isLocked = new object();
         static MLContext mlContext = null;
         static ITransformer model = null;

@@ -34,5 +34,12 @@ namespace ePozoriste.Controllers
         {
             return _service.TerminRecommenderSystem(id);
         }
+
+        [Authorize]
+        [HttpGet("obrisiKarte/{id}")]
+        public void ObrisiKarte(int id)
+        {
+            _service.ObrisiKarte(id);
+        }
     }
 }
