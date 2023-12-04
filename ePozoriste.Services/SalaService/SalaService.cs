@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ePozoriste.Services
 {
-    public class SalaService : BaseCRUDService <Model.Sala, Database.Sala, SalaSearchObject, SalaInsertRequest, SalaInsertRequest>, ISalaService
+    public class SalaService : BaseCRUDService <Model.Sala, Database.Sala, SalaSearchObject, SalaInsertRequest, SalaUpdateRequest>, ISalaService
     {
         public SalaService(ePozoristeContext context, IMapper mapper) : base(context, mapper)
         {
@@ -46,23 +46,6 @@ namespace ePozoriste.Services
             _context.Add(sala);
             _context.SaveChanges();
             return _mapper.Map<Model.Sala>(sala);
-        }
-
-        public override Model.Sala Update(int id, SalaInsertRequest request)
-        {
-            var entity = _context.Salas.Find(id);
-
-            if (entity != null)
-            {
-                entity.BrSjedista = request.BrRedova * request.BrSjedistaPoRedu;
-                _mapper.Map(request, entity);
-            }
-            else
-            {
-                return null;
-            }
-            _context.SaveChanges();
-            return _mapper.Map<Model.Sala>(entity);
         }
 
         public override Model.Sala Delete(int id)

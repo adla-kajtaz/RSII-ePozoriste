@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ePozoriste.Services
 {
-    public interface ISalaService : IBaseCRUDService <Model.Sala, SalaSearchObject, SalaInsertRequest, SalaInsertRequest>
+    public interface ISalaService : IBaseCRUDService <Model.Sala, SalaSearchObject, SalaInsertRequest, SalaUpdateRequest>
     {
 
     }

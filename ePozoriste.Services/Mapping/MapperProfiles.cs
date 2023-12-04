@@ -38,6 +38,7 @@ namespace ePozoriste.Services.Mapping
             CreateMap<ObavijestUpdateRequest, Database.Obavijest>();
             CreateMap<PozoristeInsertRequest, Database.Pozoriste>();
             CreateMap<SalaInsertRequest, Database.Sala>();
+            CreateMap<SalaUpdateRequest, Database.Sala>();
             CreateMap<VrstaPredstaveInsertRequest, Database.VrstaPredstave>();
             CreateMap<GlumacInsertRequest, Database.Glumac>();
             CreateMap<PredstavaInsertRequest, Database.Predstava>();
