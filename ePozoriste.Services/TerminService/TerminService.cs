@@ -149,7 +149,7 @@ namespace ePozoriste.Services
             {
                 var karte = _context.Karta.Where(e => e.TerminId == termin.TerminId && e.Aktivna == false).ToList();
 
-                var brojac = karte.Count();
+                var brojac = karte.Count;
                 brKarata += brojac;
                 cijena = termin.CijenaKarte ?? 0;
                 zarada += (brojac * cijena);
@@ -158,6 +158,7 @@ namespace ePozoriste.Services
             var report = new Zarada()
             {
                 BrKarata = brKarata,
+                BrTermina = termini.Count,
                 UkupnaZarada = zarada
             };
 

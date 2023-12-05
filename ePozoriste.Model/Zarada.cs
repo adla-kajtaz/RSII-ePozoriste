@@ -10,6 +10,8 @@ namespace ePozoriste.Model
     {
         public int BrKarata { get; set; }
 
+        public int BrTermina { get; set; }
+
         public int UkupnaZarada { get; set; }
     }
 }
