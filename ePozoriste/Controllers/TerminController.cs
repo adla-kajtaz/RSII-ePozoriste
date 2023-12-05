@@ -41,5 +41,12 @@ namespace ePozoriste.Controllers
         {
             _service.ObrisiKarte(id);
         }
+
+        [Authorize]
+        [HttpGet("zaradaReport/{id}")]
+        public Model.Zarada ZaradaReport(int id)
+        {
+            return _service.ZaradaReport(id);
+        }
     }
 }
