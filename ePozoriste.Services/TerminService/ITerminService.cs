@@ -13,6 +13,5 @@ namespace ePozoriste.Services
     {
         public List<Model.Termin> TerminRecommenderSystem(int userId);
         public void ObrisiKarte(int id);
-        Model.Zarada ZaradaReport(int predstavaId);
     }
 }

@@ -11,6 +11,6 @@ namespace ePozoriste.Services
 {
     public interface IPredstavaService : IBaseCRUDService<Model.Predstava, PredstavaSearchObject, PredstavaInsertRequest, PredstavaInsertRequest>
     {
-
+        Model.Zarada ZaradaReport(int id);
     }
 }

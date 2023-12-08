@@ -1,6 +1,8 @@
 ﻿using ePozoriste.Model.Requests;
 using ePozoriste.Model.SearchObjects;
 using ePozoriste.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ePozoriste.Controllers
 {
@@ -10,6 +12,13 @@ namespace ePozoriste.Controllers
         public PredstavaController(IPredstavaService service) : base(service)
         {
             _service = service;
+        }
+
+        [Authorize]
+        [HttpGet("zaradaReport/{id}")]
+        public Model.Zarada ZaradaReport(int id)
+        {
+            return _service.ZaradaReport(id);
         }
     }
 }

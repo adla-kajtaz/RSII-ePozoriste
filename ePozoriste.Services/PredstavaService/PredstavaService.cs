@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ePozoriste.Model;
 using ePozoriste.Model.Requests;
 using ePozoriste.Model.SearchObjects;
 using ePozoriste.Services.BaseService;
@@ -66,6 +67,30 @@ namespace ePozoriste.Services
 
             _context.SaveChanges();
             return _mapper.Map<Model.Predstava>(entity);
+        }
+
+        public Model.Zarada ZaradaReport(int id)
+        {
+            var termini = _context.Termins.Where(e => e.PredstavaId == id).ToList();
+            int brKarata = 0, cijena = 0, zarada = 0;
+            foreach (var termin in termini)
+            {
+                var karte = _context.Karta.Where(e => e.TerminId == termin.TerminId && e.Aktivna == false).ToList();
+
+                var brojac = karte.Count;
+                brKarata += brojac;
+                cijena = termin.CijenaKarte ?? 0;
+                zarada += (brojac * cijena);
+            }
+
+            var report = new Zarada()
+            {
+                BrKarata = brKarata,
+                BrTermina = termini.Count,
+                UkupnaZarada = zarada
+            };
+
+            return report;
         }
     }
 }
