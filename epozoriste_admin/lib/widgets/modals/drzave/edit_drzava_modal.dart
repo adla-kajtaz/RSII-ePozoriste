@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class EditDrzavaModal extends StatefulWidget {
   final Drzava drzava;
   final Function handleEdit;
-  EditDrzavaModal({
+  const EditDrzavaModal({
     Key? key,
     required this.drzava,
     required this.handleEdit,
@@ -89,7 +89,7 @@ class _EditDrzavaModalState extends State<EditDrzavaModal> {
               );
             }
           },
-          child: const Text('Add'),
+          child: const Text('Izmjeni'),
         ),
       ],
     );

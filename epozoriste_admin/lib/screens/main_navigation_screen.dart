@@ -1,4 +1,5 @@
 import 'package:epozoriste_admin/screens/drzave_screen.dart';
+import 'package:epozoriste_admin/screens/gradovi_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationItem {
@@ -23,8 +24,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<NavigationItem> _navigationItems = [
     NavigationItem(label: 'Drzave', widget: const DrzaveScreen()),
-    NavigationItem(
-        label: 'Gradovi', widget: const Text('Gradovi', style: optionStyle)),
+    NavigationItem(label: 'Gradovi', widget: const GradoviScreen()),
     // Add more items here in the same pattern
     NavigationItem(
         label: 'Glumci', widget: const Text('Glumci', style: optionStyle)),

@@ -1,5 +1,6 @@
 import 'package:epozoriste_admin/providers/auth_provider.dart';
 import 'package:epozoriste_admin/providers/drzava_provider.dart';
+import 'package:epozoriste_admin/providers/gradovi_provider.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => DrzavaProvider()),
+        ChangeNotifierProvider(create: (_) => GradoviProvider()),
       ],
       child: const MyApp(),
     ),
