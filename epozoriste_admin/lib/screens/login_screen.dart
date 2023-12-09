@@ -1,5 +1,8 @@
+import 'package:epozoriste_admin/providers/auth_provider.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
+import 'package:epozoriste_admin/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 RegExp regexLozinka = RegExp(r'^.{8,}$');
 RegExp regexKorisnicko = RegExp(r'^.{4,}$');
@@ -14,9 +17,16 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
+  AuthProvider? _authProvider;
   String? userName;
   String? password;
   bool loginFailed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _authProvider = context.read<AuthProvider>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,16 +103,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           'lozinka': password
                         };
                         try {
-                          print("Sucess");
-                          // var data = await _authProvider!.login(user);
-                          // if (context.mounted) {
-                          //   _authProvider!
-                          //       .setParameters(data!.korisnikId!.toInt());
-                          //   Authorization.username = korisnickoIme;
-                          //   Authorization.password = lozinka;
-                          Navigator.pushReplacementNamed(
-                              context, MainNavigationScreen.routeName);
-                          // }
+                          var data = await _authProvider!.loginAdmin(user);
+                          if (context.mounted) {
+                            _authProvider!
+                                .setParameters(data!.korisnikId!.toInt());
+                            Authorization.username = userName;
+                            Authorization.password = password;
+                            Navigator.pushReplacementNamed(
+                                context, MainNavigationScreen.routeName);
+                          }
                         } on Exception catch (error) {
                           print(error.toString());
                           if (error.toString().contains("Bad request")) {

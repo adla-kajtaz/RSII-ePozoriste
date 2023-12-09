@@ -16,7 +16,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:5192/");
+        defaultValue: "http://localhost:5192/");
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
@@ -96,6 +96,22 @@ abstract class BaseProvider<T> with ChangeNotifier {
     } else {
       return null;
     }
+  }
+
+  Future<T?> remove(int id) {
+    var url = "$_baseUrl$_endpoint/$id";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    return http!.delete(uri, headers: headers).then((response) {
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return fromJson(data);
+      } else {
+        return null;
+      }
+    });
   }
 
   Map<String, String> createHeaders() {

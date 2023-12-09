@@ -7,7 +7,7 @@ class TerminProvider extends BaseProvider<Termin> {
   static String? _baseUrl;
   TerminProvider() : super("Termin") {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:5192/");
+        defaultValue: "http://localhost:5192/");
   }
 
   @override

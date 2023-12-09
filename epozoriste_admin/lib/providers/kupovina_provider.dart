@@ -6,7 +6,7 @@ class KupovinaProvider extends BaseProvider<Kupovina> {
   static String? _baseUrl;
   KupovinaProvider() : super("Kupovina") {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:5192/");
+        defaultValue: "http://localhost:5192/");
   }
 
   @override

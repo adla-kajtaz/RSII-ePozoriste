@@ -6,7 +6,7 @@ class KartaProvider extends BaseProvider<Karta> {
   static String? _baseUrl;
   KartaProvider() : super("Karta") {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:5192/");
+        defaultValue: "http://localhost:5192/");
   }
 
   @override

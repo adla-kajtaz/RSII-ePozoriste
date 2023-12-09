@@ -1,3 +1,4 @@
+import 'package:epozoriste_admin/screens/drzave_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationItem {
@@ -21,8 +22,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   final List<NavigationItem> _navigationItems = [
-    NavigationItem(
-        label: 'Drzave', widget: const Text('Drzave', style: optionStyle)),
+    NavigationItem(label: 'Drzave', widget: const DrzaveScreen()),
     NavigationItem(
         label: 'Gradovi', widget: const Text('Gradovi', style: optionStyle)),
     // Add more items here in the same pattern

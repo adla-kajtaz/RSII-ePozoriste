@@ -14,7 +14,7 @@ class AuthProvider extends BaseProvider<Korisnik> {
   static String? _baseUrl;
   AuthProvider() : super("Korisnik") {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:5192/");
+        defaultValue: "http://localhost:5192/");
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
@@ -36,8 +36,8 @@ class AuthProvider extends BaseProvider<Korisnik> {
     return _loggedUserId!.toInt();
   }
 
-  Future<Korisnik?> login(dynamic request) async {
-    var url = "$_baseUrl" + "Auth/login";
+  Future<Korisnik?> loginAdmin(dynamic request) async {
+    var url = "$_baseUrl" + "Auth/login/admin";
     var headers = createHeaders();
     var uri = Uri.parse(url);
     var jsonRequest = jsonEncode(request);
