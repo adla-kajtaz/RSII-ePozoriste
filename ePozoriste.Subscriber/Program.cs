@@ -1,58 +1,42 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using EasyNetQ;
+﻿using EasyNetQ;
 using ePozoriste.Model;
 using ePozoriste.Subscriber;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
-
-Console.WriteLine("Hello, World!");
-
-/*var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "nova_kupovina",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
-
-Console.WriteLine(" [*] Waiting for messages.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine($" [x] Received {message}");
-};
-channel.BasicConsume(queue: "nova_kupovina",
-                     autoAck: true,
-                     consumer: consumer);
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();*/
-
-try
-{
-    using (var bus = RabbitHutch.CreateBus("host=localhost"))
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args).ConfigureServices((hostContext, services) =>
     {
-        bus.PubSub.Subscribe<KupovinaNotifikacija>("Nova_kupovina", HandleTextMessage);
-        Console.WriteLine("Listening for messages. Hit <return> to quit.");
-        Console.ReadLine();
+        services.AddHostedService<RabbitMQHostedService>();
+    });
+
+CreateHostBuilder(args).Build().Run();
+public class RabbitMQHostedService : IHostedService
+{
+    private IBus _bus;
+    private EmailService _service;
+
+    public RabbitMQHostedService()
+    {
+        _service = new EmailService();
+        _bus = RabbitHutch.CreateBus("host=rabbitMQ");
     }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Exception during RabbitMQ setup: {ex}");
-}
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        _bus.PubSub.Subscribe<KupovinaNotifikacija>("Nova_kupovina", HandleTextMessage);
+        Console.WriteLine("Listening for messages.");
+        return Task.CompletedTask;
+    }
 
-async Task HandleTextMessage(KupovinaNotifikacija entity)
-{
-    Console.WriteLine($"Purchase received: {entity?.KupovinaNotifikacijaId}, {entity?.NazivPredstave}");
-    EmailService emailService = new EmailService();
-    await emailService.SendEmailAsync(entity.Email, "Nova kupovina na ePozoristu!", $"Kupili ste karte za predstavu {entity.NazivPredstave}.");
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        _bus.Dispose();
+        return Task.CompletedTask;
+    }
 
+    private Task HandleTextMessage(KupovinaNotifikacija entity)
+    {
+        Console.WriteLine($"Purchase received: {entity?.KupovinaNotifikacijaId}, Predstava: {entity?.NazivPredstave}, Email: {entity.Email}");
+        _service.SendEmailAsync(entity.Email, "Nova kupovina na ePozoristu!", $"Kupili ste karte za predstavu {entity.NazivPredstave}.");
+        return Task.CompletedTask;
+    }
 }
