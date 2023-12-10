@@ -65,7 +65,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurno da zelite da obrisete drzavu?'),
+              Text('Da li ste sigurni da zelite da obrisete drzavu?'),
             ],
           ),
           actions: [
@@ -167,42 +167,44 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
           SizedBox(
             height: 300,
             width: double.infinity, // Set the width to take 100% of the screen
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text('Naziv')),
-                DataColumn(label: Text('Skracenica')),
-                DataColumn(label: Text('Uredi')),
-                DataColumn(label: Text('Obrisi')),
-              ],
-              rows: _drzave!.isNotEmpty
-                  ? _drzave!.map((drzava) {
-                      return DataRow(cells: [
-                        DataCell(Text(drzava.naziv)),
-                        DataCell(Text(drzava.skracenica)),
-                        DataCell(IconButton(
-                          icon: Icon(Icons.edit,
-                              color: Theme.of(context).primaryColor),
-                          onPressed: () {
-                            openEditModal(drzava);
-                          },
-                        )),
-                        DataCell(IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            openDeleteModal(drzava);
-                          },
-                        )),
-                      ]);
-                    }).toList()
-                  : [
-                      const DataRow(cells: [
-                        DataCell(Text('')),
-                        DataCell(
-                            Center(child: Text('Nema rezultata pretrage'))),
-                        DataCell(Text('')),
-                        DataCell(Text('')),
-                      ])
-                    ],
+            child: SingleChildScrollView(
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text('Naziv')),
+                  DataColumn(label: Text('Skracenica')),
+                  DataColumn(label: Text('Uredi')),
+                  DataColumn(label: Text('Obrisi')),
+                ],
+                rows: _drzave!.isNotEmpty
+                    ? _drzave!.map((drzava) {
+                        return DataRow(cells: [
+                          DataCell(Text(drzava.naziv)),
+                          DataCell(Text(drzava.skracenica)),
+                          DataCell(IconButton(
+                            icon: Icon(Icons.edit,
+                                color: Theme.of(context).primaryColor),
+                            onPressed: () {
+                              openEditModal(drzava);
+                            },
+                          )),
+                          DataCell(IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              openDeleteModal(drzava);
+                            },
+                          )),
+                        ]);
+                      }).toList()
+                    : [
+                        const DataRow(cells: [
+                          DataCell(Text('')),
+                          DataCell(
+                              Center(child: Text('Nema rezultata pretrage'))),
+                          DataCell(Text('')),
+                          DataCell(Text('')),
+                        ])
+                      ],
+              ),
             ),
           ),
         ],

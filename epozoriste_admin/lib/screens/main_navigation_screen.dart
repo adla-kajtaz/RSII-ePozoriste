@@ -1,4 +1,5 @@
 import 'package:epozoriste_admin/screens/drzave_screen.dart';
+import 'package:epozoriste_admin/screens/glumci_screen.dart';
 import 'package:epozoriste_admin/screens/gradovi_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +27,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     NavigationItem(label: 'Drzave', widget: const DrzaveScreen()),
     NavigationItem(label: 'Gradovi', widget: const GradoviScreen()),
     // Add more items here in the same pattern
-    NavigationItem(
-        label: 'Glumci', widget: const Text('Glumci', style: optionStyle)),
+    NavigationItem(label: 'Glumci', widget: const GlumciScreen()),
     NavigationItem(
         label: 'Predstave',
         widget: const Text('Predstave', style: optionStyle)),

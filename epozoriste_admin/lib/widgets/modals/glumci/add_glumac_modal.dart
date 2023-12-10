@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-class AddDrzavaModal extends StatefulWidget {
+class AddGlumacModal extends StatefulWidget {
   final Function handleAdd;
-  const AddDrzavaModal({
+  const AddGlumacModal({
     super.key,
     required this.handleAdd,
   });
 
   @override
-  State<AddDrzavaModal> createState() => _AddDrzavaModalState();
+  State<AddGlumacModal> createState() => _AddGlumacModalState();
 }
 
-class _AddDrzavaModalState extends State<AddDrzavaModal> {
+class _AddGlumacModalState extends State<AddGlumacModal> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? naziv;
   String? skracenica;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Dodaj državu'),
+      title: const Text('Dodaj glumca'),
       content: Form(
         key: formKey,
         child: Column(
@@ -26,7 +26,7 @@ class _AddDrzavaModalState extends State<AddDrzavaModal> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Naziv države',
+                labelText: 'Ime glumca',
               ),
               onChanged: (value) {
                 naziv = value;
@@ -40,7 +40,7 @@ class _AddDrzavaModalState extends State<AddDrzavaModal> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Skraćenica',
+                labelText: 'Prezime glumca',
               ),
               onChanged: (value) {
                 skracenica = value;
