@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
         MainNavigationScreen.routeName: (context) =>
             const MainNavigationScreen(),
       },
-      home: const LoginScreen(),
     );
   }
 }

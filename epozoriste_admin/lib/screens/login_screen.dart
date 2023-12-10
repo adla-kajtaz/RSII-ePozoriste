@@ -111,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .setParameters(data!.korisnikId!.toInt());
                             Authorization.username = userName;
                             Authorization.password = password;
+                            Authorization.korisnikId = data.korisnikId!.toInt();
                             Navigator.pushReplacementNamed(
                                 context, MainNavigationScreen.routeName);
                           }

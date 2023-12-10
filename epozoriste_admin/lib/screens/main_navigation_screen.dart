@@ -2,6 +2,7 @@ import 'package:epozoriste_admin/screens/drzave_screen.dart';
 import 'package:epozoriste_admin/screens/glumci_screen.dart';
 import 'package:epozoriste_admin/screens/gradovi_screen.dart';
 import 'package:epozoriste_admin/screens/kategorije_obavijesti_screen.dart';
+import 'package:epozoriste_admin/screens/obavijest_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationItem {
@@ -38,9 +39,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     NavigationItem(
         label: 'Pozorista',
         widget: const Text('Pozorista', style: optionStyle)),
-    NavigationItem(
-        label: 'Obavijesti',
-        widget: const Text('Obavijesti', style: optionStyle)),
+    NavigationItem(label: 'Obavijesti', widget: const ObavijestiScreen()),
     NavigationItem(
         label: 'Kategorije obavijesti',
         widget: const KategorijeObavijestiScreen()),

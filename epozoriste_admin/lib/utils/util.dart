@@ -6,12 +6,15 @@ import 'package:intl/intl.dart';
 class Authorization {
   static String? username;
   static String? password;
+  static int? korisnikId;
 }
 
-Image imageFromBase64String(String base64String) {
+Image imageFromBase64String(String base64String, int? width, int? height) {
   return Image.memory(
     base64Decode(base64String),
     fit: BoxFit.cover,
+    width: width?.toDouble(),
+    height: height?.toDouble(),
   );
 }
 
