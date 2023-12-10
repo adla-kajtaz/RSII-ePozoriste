@@ -16,7 +16,7 @@ Obavijest _$ObavijestFromJson(Map<String, dynamic> json) => Obavijest(
       obavijestKategorijaId: json['obavijestKategorijaId'] as int?,
       obavijestKategorija: json['obavijestKategorija'] == null
           ? null
-          : ObavijestKategorija.fromJson(
+          : KategorijaObavijest.fromJson(
               json['obavijestKategorija'] as Map<String, dynamic>),
       korisnikId: json['korisnikId'] as int?,
       korisnik: Korisnik.fromJson(json['korisnik'] as Map<String, dynamic>),

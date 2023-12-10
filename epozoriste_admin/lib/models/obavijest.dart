@@ -12,7 +12,7 @@ class Obavijest {
   String? slika;
   DateTime datumKreiranja;
   int? obavijestKategorijaId;
-  ObavijestKategorija? obavijestKategorija;
+  KategorijaObavijest? obavijestKategorija;
   int? korisnikId;
   Korisnik korisnik;
 

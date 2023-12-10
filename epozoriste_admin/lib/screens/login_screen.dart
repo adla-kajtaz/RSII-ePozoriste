@@ -54,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (!regexKorisnicko.hasMatch(value)) {
                         return 'Korisničko ime mora sadržavati namjanje 4 karaktera!';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       labelText: 'Korisničko ime',
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (loginFailed) {
                         return "Pogrešno korisničko ime ili lozinka!";
                       }
+                      return null;
                     },
                     obscureText: true,
                     autocorrect: false,

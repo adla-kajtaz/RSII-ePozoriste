@@ -2,6 +2,8 @@ import 'package:epozoriste_admin/providers/auth_provider.dart';
 import 'package:epozoriste_admin/providers/drzava_provider.dart';
 import 'package:epozoriste_admin/providers/glumci_provider.dart';
 import 'package:epozoriste_admin/providers/gradovi_provider.dart';
+import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
+import 'package:epozoriste_admin/providers/obavijest_provider.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => DrzavaProvider()),
         ChangeNotifierProvider(create: (_) => GradoviProvider()),
         ChangeNotifierProvider(create: (_) => GlumacProvider()),
+        ChangeNotifierProvider(create: (_) => KategorijaObavijestProvider()),
+        ChangeNotifierProvider(create: (_) => ObavijestProvider())
       ],
       child: const MyApp(),
     ),
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      initialRoute: '/login',
+      initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),
         MainNavigationScreen.routeName: (context) =>
