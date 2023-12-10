@@ -1,11 +1,6 @@
-import 'package:epozoriste_admin/providers/auth_provider.dart';
-import 'package:epozoriste_admin/providers/drzava_provider.dart';
-import 'package:epozoriste_admin/providers/glumci_provider.dart';
-import 'package:epozoriste_admin/providers/gradovi_provider.dart';
-import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
-import 'package:epozoriste_admin/providers/obavijest_provider.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
+import 'providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +13,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => GradoviProvider()),
         ChangeNotifierProvider(create: (_) => GlumacProvider()),
         ChangeNotifierProvider(create: (_) => KategorijaObavijestProvider()),
-        ChangeNotifierProvider(create: (_) => ObavijestProvider())
+        ChangeNotifierProvider(create: (_) => ObavijestProvider()),
+        ChangeNotifierProvider(create: (_) => PozoristeProvider()),
       ],
       child: const MyApp(),
     ),

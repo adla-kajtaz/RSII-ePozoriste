@@ -167,49 +167,49 @@ class _EditObavijestModalState extends State<EditObavijestModal> {
                     Column(
                       children: [
                         Container(
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                style: _selectedImage == null
-                                    ? BorderStyle.solid
-                                    : BorderStyle.none,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              style: _selectedImage == null
+                                  ? BorderStyle.solid
+                                  : BorderStyle.none,
                             ),
-                            child: InkWell(
-                              onTap: selectImage,
-                              child: _selectedImage == null
-                                  ? SizedBox(
-                                      width: double.infinity,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.cloud_upload,
-                                            size: 48,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: InkWell(
+                            onTap: selectImage,
+                            child: _selectedImage == null
+                                ? SizedBox(
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.cloud_upload,
+                                          size: 48,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Odaberite sliku',
+                                          style: TextStyle(
                                             color:
                                                 Theme.of(context).primaryColor,
                                           ),
-                                          const SizedBox(height: 8),
-                                          Text(
-                                            'Odaberite sliku',
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : imageFromBase64String(
-                                      _selectedImage!,
-                                      200,
-                                      200,
+                                        ),
+                                      ],
                                     ),
-                            )),
+                                  )
+                                : imageFromBase64String(
+                                    _selectedImage!,
+                                    200,
+                                    200,
+                                  ),
+                          ),
+                        ),
                         if (slikaError)
                           const Text(
                             'Slika je obavezna!',
