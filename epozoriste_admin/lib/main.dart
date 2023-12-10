@@ -1,5 +1,6 @@
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
+import 'package:epozoriste_admin/screens/sale_screen.dart';
 import 'providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => KategorijaObavijestProvider()),
         ChangeNotifierProvider(create: (_) => ObavijestProvider()),
         ChangeNotifierProvider(create: (_) => PozoristeProvider()),
+        ChangeNotifierProvider(create: (_) => SaleProvider()),
       ],
       child: const MyApp(),
     ),
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (context) => const LoginScreen(),
         MainNavigationScreen.routeName: (context) =>
             const MainNavigationScreen(),
+        SaleScreen.routeName: (context) =>
+            SaleScreen(id: ModalRoute.of(context)!.settings.arguments as int),
       },
     );
   }

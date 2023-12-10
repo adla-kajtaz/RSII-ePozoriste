@@ -5,3 +5,4 @@ export 'gradovi_provider.dart';
 export 'kategorija_obavijest.dart';
 export 'obavijest_provider.dart';
 export 'pozoriste_provider.dart';
+export 'sale_provider.dart';

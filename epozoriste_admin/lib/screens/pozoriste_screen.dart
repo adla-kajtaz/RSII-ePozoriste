@@ -1,6 +1,7 @@
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/gradovi_provider.dart';
 import 'package:epozoriste_admin/providers/pozoriste_provider.dart';
+import 'package:epozoriste_admin/screens/sale_screen.dart';
 import 'package:epozoriste_admin/utils/util.dart';
 import 'package:epozoriste_admin/widgets/modals/pozorista/add_pozoriste_modal.dart';
 import 'package:epozoriste_admin/widgets/modals/pozorista/edit_pozoriste_modal.dart';
@@ -279,7 +280,8 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
                             icon: Icon(Icons.theater_comedy,
                                 color: Theme.of(context).primaryColor),
                             onPressed: () {
-                              print('sale se prikazu');
+                              Navigator.pushNamed(context, SaleScreen.routeName,
+                                  arguments: pozoriste.pozoristeId);
                             },
                           )),
                         ]);
