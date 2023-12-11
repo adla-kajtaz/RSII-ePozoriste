@@ -1,6 +1,8 @@
+import 'package:epozoriste_admin/providers/termin_provider.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
 import 'package:epozoriste_admin/screens/sale_screen.dart';
+import 'package:epozoriste_admin/screens/termini_screen.dart';
 import 'providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => ObavijestProvider()),
         ChangeNotifierProvider(create: (_) => PozoristeProvider()),
         ChangeNotifierProvider(create: (_) => SaleProvider()),
+        ChangeNotifierProvider(create: (_) => TerminProvider()),
+        ChangeNotifierProvider(create: (_) => PredstavaProvider()),
       ],
       child: const MyApp(),
     ),
@@ -30,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ePozoriste Admin',
       theme: ThemeData(
         dataTableTheme: DataTableThemeData(
           headingRowColor:
@@ -47,6 +51,8 @@ class MyApp extends StatelessWidget {
             const MainNavigationScreen(),
         SaleScreen.routeName: (context) =>
             SaleScreen(id: ModalRoute.of(context)!.settings.arguments as int),
+        TerminiScreen.routeName: (context) => TerminiScreen(
+            salaId: ModalRoute.of(context)!.settings.arguments as int),
       },
     );
   }

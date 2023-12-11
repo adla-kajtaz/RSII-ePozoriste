@@ -116,7 +116,7 @@ class _AddSalaModalState extends State<AddSalaModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () {

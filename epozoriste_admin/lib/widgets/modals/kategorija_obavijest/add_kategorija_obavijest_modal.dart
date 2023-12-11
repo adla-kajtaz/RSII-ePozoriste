@@ -47,7 +47,7 @@ class _AddKategorijaObavijestModalState
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () {

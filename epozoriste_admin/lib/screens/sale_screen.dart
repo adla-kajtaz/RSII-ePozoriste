@@ -1,6 +1,7 @@
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/providers.dart';
-import 'package:epozoriste_admin/utils/util.dart';
+import 'package:epozoriste_admin/screens/termini_screen.dart';
+
 import 'package:epozoriste_admin/widgets/modals/sale/add_sala_modal.dart';
 import 'package:epozoriste_admin/widgets/modals/sale/edit_sala_modal.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _SaleScreenState extends State<SaleScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Ponisti'),
+              child: const Text('Poništi'),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -247,7 +248,12 @@ class _SaleScreenState extends State<SaleScreen> {
                                   icon: Icon(Icons.date_range_rounded,
                                       color: Theme.of(context).primaryColor),
                                   onPressed: () {
-                                    openDeleteModal(sala);
+                                    // navigate to termini screen with salaId
+                                    Navigator.pushNamed(
+                                      context,
+                                      TerminiScreen.routeName,
+                                      arguments: sala.salaId,
+                                    );
                                   },
                                 ),
                               ),

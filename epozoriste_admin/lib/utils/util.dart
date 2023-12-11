@@ -34,3 +34,36 @@ String formatNumber(dynamic) {
 
   return f.format(dynamic);
 }
+
+String formatDateTime(DateTime dateTime) {
+  final daysOfWeek = [
+    'Ponedeljak',
+    'Utorak',
+    'Srijeda',
+    'Četvrtak',
+    'Petak',
+    'Subota',
+    'Nedelja'
+  ];
+  final monthsOfYear = [
+    'Januar',
+    'Februar',
+    'Mart',
+    'April',
+    'Maj',
+    'Juni',
+    'Juli',
+    'August',
+    'Septembar',
+    'Oktobar',
+    'Novembar',
+    'Decembar'
+  ];
+
+  final dayOfWeek = daysOfWeek[dateTime.weekday - 1];
+  final day = dateTime.day;
+  final month = monthsOfYear[dateTime.month - 1];
+  final year = dateTime.year;
+
+  return '$dayOfWeek, $day. $month $year.';
+}

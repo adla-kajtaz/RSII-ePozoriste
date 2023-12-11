@@ -273,7 +273,7 @@ class _AddPozoristeModalState extends State<AddPozoristeModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () async {

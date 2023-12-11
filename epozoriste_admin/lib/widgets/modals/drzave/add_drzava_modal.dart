@@ -60,7 +60,7 @@ class _AddDrzavaModalState extends State<AddDrzavaModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () {

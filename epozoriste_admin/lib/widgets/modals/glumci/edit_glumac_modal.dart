@@ -76,7 +76,7 @@ class _EditGlumacModalState extends State<EditGlumacModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () {

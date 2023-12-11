@@ -46,7 +46,7 @@ class _EditSalaModalState extends State<EditSalaModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Uredi drzavu'),
+      title: const Text('Uredi salu'),
       content: Form(
         key: _formKey,
         child: Column(
@@ -55,8 +55,8 @@ class _EditSalaModalState extends State<EditSalaModal> {
             TextFormField(
               controller: _nazivController,
               decoration: const InputDecoration(
-                labelText: 'Ime ',
-                hintText: 'Unesite ime glumca',
+                labelText: 'Naziv ',
+                hintText: 'Unesite naziv sale',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -127,7 +127,7 @@ class _EditSalaModalState extends State<EditSalaModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () {

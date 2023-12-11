@@ -73,7 +73,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Ponisti'),
+              child: const Text('Poništi'),
             ),
             ElevatedButton(
               onPressed: () async {

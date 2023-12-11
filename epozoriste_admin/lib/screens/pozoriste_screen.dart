@@ -85,7 +85,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Ponisti'),
+              child: const Text('Poništi'),
             ),
             ElevatedButton(
               onPressed: () async {

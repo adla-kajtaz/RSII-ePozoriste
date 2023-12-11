@@ -227,7 +227,7 @@ class _EditObavijestModalState extends State<EditObavijestModal> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Ponisti'),
+          child: const Text('Poništi'),
         ),
         ElevatedButton(
           onPressed: () async {
