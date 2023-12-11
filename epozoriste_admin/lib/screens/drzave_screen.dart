@@ -88,6 +88,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati drzavu jer postoji grad koji se veže na nju!'),
                       ),

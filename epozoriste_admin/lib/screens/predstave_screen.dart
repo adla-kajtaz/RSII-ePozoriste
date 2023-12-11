@@ -5,6 +5,7 @@ import 'package:epozoriste_admin/screens/lista_glumaca_screen.dart';
 import 'package:epozoriste_admin/widgets/modals/predstava/add_glumac_predstava_modal.dart';
 import 'package:epozoriste_admin/widgets/modals/predstava/add_predstava_modal.dart';
 import 'package:epozoriste_admin/widgets/modals/predstava/edit_predstava_modal.dart';
+import 'package:epozoriste_admin/widgets/predstava_zarada.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -291,7 +292,19 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
                             IconButton(
                               icon: Icon(Icons.addchart,
                                   color: Theme.of(context).primaryColor),
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Zarada po predstavi'),
+                                      content: PredstavaZarada(
+                                        predstavaId: predstava.predstavaId,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ]);

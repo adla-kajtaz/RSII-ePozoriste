@@ -223,7 +223,7 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
                             Tooltip(
                               message: obavijest.obavijestKategorija!.naziv,
                               child: Text(
-                                obavijest.obavijestKategorija!.naziv.length > 10
+                                obavijest.obavijestKategorija!.naziv.length > 20
                                     ? "${obavijest.obavijestKategorija!.naziv.substring(0, 20)} ..."
                                     : obavijest.obavijestKategorija!.naziv,
                               ),

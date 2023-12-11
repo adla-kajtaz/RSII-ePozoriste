@@ -84,7 +84,7 @@ class _EditPredstavaModalState extends State<EditPredstavaModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Dodaj obavijest'),
+      title: const Text('Izmjeni predstavu'),
       content: Form(
           key: formKey,
           child: Row(
@@ -310,7 +310,7 @@ class _EditPredstavaModalState extends State<EditPredstavaModal> {
               widget.handleEdit(widget.predstava.predstavaId, request);
             }
           },
-          child: const Text('Dodaj'),
+          child: const Text('Uredi'),
         ),
       ],
     );

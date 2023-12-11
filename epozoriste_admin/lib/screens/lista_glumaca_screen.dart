@@ -105,6 +105,9 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Lista glumaca'),
+      ),
       body: Column(
         children: [
           const SizedBox(height: 20),
