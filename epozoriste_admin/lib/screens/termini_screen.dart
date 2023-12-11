@@ -1,6 +1,7 @@
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/providers.dart';
 import 'package:epozoriste_admin/providers/termin_provider.dart';
+import 'package:epozoriste_admin/screens/karte_screen.dart';
 import 'package:epozoriste_admin/utils/util.dart';
 import 'package:epozoriste_admin/widgets/modals/termini/add_termin_modal.dart';
 import 'package:epozoriste_admin/widgets/modals/termini/edit_termin_modal.dart';
@@ -50,6 +51,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
   void resetState() {
     setState(() {
       _selectedDate = null;
+      _selectedPredstava = _predstave[0];
       filterPremiera = false;
       filterPredPremiera = false;
     });
@@ -342,8 +344,9 @@ class _TerminiScreenState extends State<TerminiScreen> {
                             icon: Icon(Icons.apps_sharp,
                                 color: Theme.of(context).primaryColor),
                             onPressed: () {
-                              // Navigator.pushNamed(context, SaleScreen.routeName,
-                              //     arguments: pozoriste.pozoristeId);
+                              Navigator.pushNamed(
+                                  context, KarteScreen.routeName,
+                                  arguments: termin.terminId);
                             },
                           )),
                           DataCell(

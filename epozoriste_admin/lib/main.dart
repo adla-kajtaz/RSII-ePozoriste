@@ -1,4 +1,7 @@
+import 'package:epozoriste_admin/providers/karta_provider.dart';
 import 'package:epozoriste_admin/providers/termin_provider.dart';
+import 'package:epozoriste_admin/providers/vrsta_predstave_provider.dart';
+import 'package:epozoriste_admin/screens/karte_screen.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
 import 'package:epozoriste_admin/screens/sale_screen.dart';
@@ -21,6 +24,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => SaleProvider()),
         ChangeNotifierProvider(create: (_) => TerminProvider()),
         ChangeNotifierProvider(create: (_) => PredstavaProvider()),
+        ChangeNotifierProvider(create: (_) => KartaProvider()),
+        ChangeNotifierProvider(create: (_) => VrstaPredstaveProvider()),
       ],
       child: const MyApp(),
     ),
@@ -53,6 +58,8 @@ class MyApp extends StatelessWidget {
             SaleScreen(id: ModalRoute.of(context)!.settings.arguments as int),
         TerminiScreen.routeName: (context) => TerminiScreen(
             salaId: ModalRoute.of(context)!.settings.arguments as int),
+        KarteScreen.routeName: (context) => KarteScreen(
+            terminId: ModalRoute.of(context)!.settings.arguments as int),
       },
     );
   }
