@@ -42,6 +42,7 @@ namespace ePozoriste.Services
             sala.Naziv = request.Naziv;
             sala.BrRedova = request.BrRedova;
             sala.BrSjedistaPoRedu = request.BrSjedistaPoRedu;
+            sala.PozoristeId = request.PozoristeId;
             sala.BrSjedista = request.BrRedova * request.BrSjedistaPoRedu;
             _context.Add(sala);
             _context.SaveChanges();

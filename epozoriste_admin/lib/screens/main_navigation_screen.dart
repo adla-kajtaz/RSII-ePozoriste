@@ -4,6 +4,7 @@ import 'package:epozoriste_admin/screens/gradovi_screen.dart';
 import 'package:epozoriste_admin/screens/kategorije_obavijesti_screen.dart';
 import 'package:epozoriste_admin/screens/obavijest_screen.dart';
 import 'package:epozoriste_admin/screens/pozoriste_screen.dart';
+import 'package:epozoriste_admin/screens/predstave_screen.dart';
 import 'package:epozoriste_admin/screens/vrste_predstave_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +33,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     NavigationItem(label: 'Gradovi', widget: const GradoviScreen()),
     // Add more items here in the same pattern
     NavigationItem(label: 'Glumci', widget: const GlumciScreen()),
-    NavigationItem(
-        label: 'Predstave',
-        widget: const Text('Predstave', style: optionStyle)),
+    NavigationItem(label: 'Predstave', widget: const PredstaveScreen()),
     NavigationItem(
         label: 'Vrste predstave', widget: const VrstePredstaveScreen()),
     NavigationItem(label: 'Pozorista', widget: const PozoristeScreen()),

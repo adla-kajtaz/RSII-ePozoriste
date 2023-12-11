@@ -1,7 +1,9 @@
 import 'package:epozoriste_admin/providers/karta_provider.dart';
+import 'package:epozoriste_admin/providers/predstava_glumac_provider.dart';
 import 'package:epozoriste_admin/providers/termin_provider.dart';
 import 'package:epozoriste_admin/providers/vrsta_predstave_provider.dart';
 import 'package:epozoriste_admin/screens/karte_screen.dart';
+import 'package:epozoriste_admin/screens/lista_glumaca_screen.dart';
 import 'package:epozoriste_admin/screens/login_screen.dart';
 import 'package:epozoriste_admin/screens/main_navigation_screen.dart';
 import 'package:epozoriste_admin/screens/sale_screen.dart';
@@ -26,6 +28,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => PredstavaProvider()),
         ChangeNotifierProvider(create: (_) => KartaProvider()),
         ChangeNotifierProvider(create: (_) => VrstaPredstaveProvider()),
+        ChangeNotifierProvider(create: (_) => PredstavaGlumacProvider()),
       ],
       child: const MyApp(),
     ),
@@ -60,6 +63,14 @@ class MyApp extends StatelessWidget {
             salaId: ModalRoute.of(context)!.settings.arguments as int),
         KarteScreen.routeName: (context) => KarteScreen(
             terminId: ModalRoute.of(context)!.settings.arguments as int),
+        ListaGlumacaScreen.routeName: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return ListaGlumacaScreen(
+            predstavaId: args['predstavaId'] as int,
+            naziv: args['naziv'] as String,
+          );
+        },
       },
     );
   }

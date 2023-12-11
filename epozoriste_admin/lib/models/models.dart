@@ -10,3 +10,4 @@ export 'karta.dart';
 export 'vrstaPredstave.dart';
 export 'glumac.dart';
 export 'kategorija_obavijest.dart';
+export 'predstava_glumac.dart';
