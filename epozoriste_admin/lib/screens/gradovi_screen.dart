@@ -19,8 +19,7 @@ class _GradoviScreenState extends State<GradoviScreen> {
   List<Grad>? _gradovi;
   List<Drzava> _drzave = [Drzava(drzavaId: 0, naziv: 'Sve', skracenica: 'skr')];
   Drzava? _selectedDrzava;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
   final TextEditingController colorController = TextEditingController();
   final TextEditingController iconController = TextEditingController();
   @override
@@ -34,7 +33,7 @@ class _GradoviScreenState extends State<GradoviScreen> {
   }
 
   void loadDrzave() async {
-    var data = await _drzavaProvider!.get(); // Modify this line
+    var data = await _drzavaProvider!.get();
     setState(() {
       _drzave = [..._drzave, ...data];
     });
@@ -47,7 +46,7 @@ class _GradoviScreenState extends State<GradoviScreen> {
       'Tekst': _searchController.text
     };
 
-    var data = await _gradoviProvider!.get(request); // Modify this line
+    var data = await _gradoviProvider!.get(request);
     setState(() {
       _gradovi = data;
     });
@@ -62,6 +61,12 @@ class _GradoviScreenState extends State<GradoviScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali grad!'),
+        ),
+      );
     }
   }
 
@@ -79,11 +84,11 @@ class _GradoviScreenState extends State<GradoviScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete grad?'),
+              Text('Da li ste sigurni da želite da obrišete grad?'),
             ],
           ),
           actions: [
@@ -106,15 +111,16 @@ class _GradoviScreenState extends State<GradoviScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
-                            'Ne možete obrisati grad jer postoji pozoriste u njemu!'),
+                            'Ne možete obrisati grad jer postoji pozorište u njemu!'),
                       ),
                     );
                   }
                 }
               },
               child: const Text(
-                'Obrisi',
+                'Obriši',
                 style: TextStyle(color: Colors.red),
               ),
             ),
@@ -133,6 +139,12 @@ class _GradoviScreenState extends State<GradoviScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novi grad!'),
+        ),
+      );
     }
   }
 
@@ -213,7 +225,7 @@ class _GradoviScreenState extends State<GradoviScreen> {
           const SizedBox(height: 16),
           SizedBox(
             height: 300,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [

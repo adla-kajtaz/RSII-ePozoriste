@@ -32,7 +32,7 @@ Testni podaci za Stripe:
 `flutter pub get` - za dobavljanje dependencies
 `flutter run` - za pokretanje aplikacije
 
-3. Desktop aplikacija se pokrece otvaranjem foldera epozoriste_desktop u VSCode-u, te se pokrenu sljedece komande u terminalu:
+3. Desktop aplikacija se pokrece otvaranjem foldera epozoriste_admin u VSCode-u, te se pokrenu sljedece komande u terminalu:
 
 `flutter pub get` - za dobavljanje dependencies
 `flutter run` - za pokretanje aplikacije

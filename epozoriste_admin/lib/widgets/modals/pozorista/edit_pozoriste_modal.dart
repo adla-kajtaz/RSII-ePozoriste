@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/gradovi_provider.dart';
-import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
 import 'package:epozoriste_admin/utils/util.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +39,7 @@ class _EditPozoristeModalState extends State<EditPozoristeModal> {
   List<Grad> _gradovi = [];
   String? _selectedImage;
 
+  @override
   void initState() {
     super.initState();
     nazivController = TextEditingController(text: widget.pozoriste.naziv);
@@ -86,7 +86,7 @@ class _EditPozoristeModalState extends State<EditPozoristeModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Dodaj pozoriste'),
+      title: const Text('Izmjeni pozoriste'),
       content: Form(
           key: formKey,
           child: Row(
@@ -298,7 +298,7 @@ class _EditPozoristeModalState extends State<EditPozoristeModal> {
               widget.handleEdit(widget.pozoriste.pozoristeId, request);
             }
           },
-          child: const Text('Dodaj'),
+          child: const Text('Izmjeni'),
         ),
       ],
     );

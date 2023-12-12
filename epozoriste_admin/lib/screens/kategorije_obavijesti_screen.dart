@@ -17,8 +17,7 @@ class _KategorijeObavijestiScreenState
     extends State<KategorijeObavijestiScreen> {
   KategorijaObavijestProvider? _kategorijaObavijestProvider;
   List<KategorijaObavijest>? _kategorijeObavijesti;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -29,7 +28,7 @@ class _KategorijeObavijestiScreenState
 
   void loadData() async {
     var data = await _kategorijaObavijestProvider!
-        .get({'Tekst': _searchController.text}); // Modify this line
+        .get({'Tekst': _searchController.text});
     setState(() {
       _kategorijeObavijesti = data;
     });
@@ -42,6 +41,12 @@ class _KategorijeObavijestiScreenState
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali kategoriju!'),
+        ),
+      );
     }
   }
 
@@ -60,11 +65,11 @@ class _KategorijeObavijestiScreenState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete drzavu?'),
+              Text('Da li ste sigurni da želite da obrišete kategoriju?'),
             ],
           ),
           actions: [
@@ -88,6 +93,7 @@ class _KategorijeObavijestiScreenState
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati kategoriju obavijesti jer postoji obavijest u njoj!'),
                       ),
@@ -96,7 +102,7 @@ class _KategorijeObavijestiScreenState
                 }
               },
               child: const Text(
-                'Obrisi',
+                'Obriši',
                 style: TextStyle(color: Colors.red),
               ),
             ),
@@ -113,6 +119,12 @@ class _KategorijeObavijestiScreenState
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu kategoriju!'),
+        ),
+      );
     }
   }
 
@@ -165,7 +177,7 @@ class _KategorijeObavijestiScreenState
           const SizedBox(height: 16),
           SizedBox(
             height: 300,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [

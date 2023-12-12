@@ -73,7 +73,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
   }
 
   void loadPredstave() async {
-    var data = await _predstavaProvider!.get(); // Modify this line
+    var data = await _predstavaProvider!.get();
     setState(() {
       _predstave = [..._predstave, ...data];
     });
@@ -89,7 +89,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
           ? null
           : _selectedPredstava!.predstavaId
     };
-    var data = await _terminProvider!.get(request); // Modify this line
+    var data = await _terminProvider!.get(request);
     setState(() {
       _pozorista = data;
     });
@@ -100,6 +100,12 @@ class _TerminiScreenState extends State<TerminiScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali podatke o terminu!'),
+        ),
+      );
     }
   }
 
@@ -121,7 +127,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete termin?'),
+              Text('Da li ste sigurni da želite da obrišete termin?'),
             ],
           ),
           actions: [
@@ -144,8 +150,9 @@ class _TerminiScreenState extends State<TerminiScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content:
-                            Text('Ne možete obrisati termin jer se koristi  !'),
+                            Text('Ne možete obrisati termin jer se koristi!'),
                       ),
                     );
                   }
@@ -168,7 +175,15 @@ class _TerminiScreenState extends State<TerminiScreen> {
       builder: (BuildContext context) {
         return AddTerminModal(
           salaId: widget.salaId,
-          handleAdd: loadData,
+          handleAdd: () => {
+            loadData(),
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Theme.of(context).primaryColor,
+                content: const Text('Uspješno ste dodali novi termin!'),
+              ),
+            ),
+          },
         );
       },
     );
@@ -185,9 +200,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
         child: Column(
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment
-                  .center, // Vertically align children in the center
-
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 16.0),
                 Expanded(

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,7 @@ class _AddObavijestModalState extends State<AddObavijestModal> {
   KategorijaObavijest? _selectedKategorijaObavijest;
   List<KategorijaObavijest> _kategorije = [];
   File? _selectedImage;
+
   @override
   void initState() {
     super.initState();

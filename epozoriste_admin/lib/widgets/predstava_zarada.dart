@@ -39,6 +39,7 @@ class _PredstavaZaradaState extends State<PredstavaZarada> {
       );
     }
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           'Zarada: ${_zarada!.ukupnaZarada} KM',
@@ -47,6 +48,15 @@ class _PredstavaZaradaState extends State<PredstavaZarada> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 10),
+        Text(
+          'Broj termina: ${_zarada!.brTermina}',
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 10),
         Text(
           'Broj prodatih karata: ${_zarada!.brKarata}',
           style: const TextStyle(

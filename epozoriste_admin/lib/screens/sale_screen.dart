@@ -19,8 +19,7 @@ class SaleScreen extends StatefulWidget {
 class _SaleScreenState extends State<SaleScreen> {
   SaleProvider? _saleProvider;
   List<Sala>? _sale;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -44,6 +43,12 @@ class _SaleScreenState extends State<SaleScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali podatke o sali!'),
+        ),
+      );
     }
   }
 
@@ -61,11 +66,11 @@ class _SaleScreenState extends State<SaleScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete salu?'),
+              Text('Da li ste sigurni da želite da obrišete salu?'),
             ],
           ),
           actions: [
@@ -88,6 +93,7 @@ class _SaleScreenState extends State<SaleScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text('Ne možete obrisati ovu salu!'),
                       ),
                     );
@@ -111,6 +117,12 @@ class _SaleScreenState extends State<SaleScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu salu!'),
+        ),
+      );
     }
   }
 
@@ -248,7 +260,6 @@ class _SaleScreenState extends State<SaleScreen> {
                                   icon: Icon(Icons.date_range_rounded,
                                       color: Theme.of(context).primaryColor),
                                   onPressed: () {
-                                    // navigate to termini screen with salaId
                                     Navigator.pushNamed(
                                       context,
                                       TerminiScreen.routeName,

@@ -1,4 +1,5 @@
 import 'package:epozoriste_admin/providers/karta_provider.dart';
+import 'package:epozoriste_admin/providers/korisnik_provider.dart';
 import 'package:epozoriste_admin/providers/predstava_glumac_provider.dart';
 import 'package:epozoriste_admin/providers/termin_provider.dart';
 import 'package:epozoriste_admin/providers/vrsta_predstave_provider.dart';
@@ -29,6 +30,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => KartaProvider()),
         ChangeNotifierProvider(create: (_) => VrstaPredstaveProvider()),
         ChangeNotifierProvider(create: (_) => PredstavaGlumacProvider()),
+        ChangeNotifierProvider(create: (_) => KorisnikProvider()),
       ],
       child: const MyApp(),
     ),

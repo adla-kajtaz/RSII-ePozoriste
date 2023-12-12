@@ -15,8 +15,7 @@ class DrzaveScreen extends StatefulWidget {
 class _DrzaveScreenState extends State<DrzaveScreen> {
   DrzavaProvider? _drzavaProvider;
   List<Drzava>? _drzave;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -26,8 +25,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
   }
 
   void loadData() async {
-    var data = await _drzavaProvider!
-        .get({'Tekst': _searchController.text}); // Modify this line
+    var data = await _drzavaProvider!.get({'Tekst': _searchController.text});
     setState(() {
       _drzave = data;
     });
@@ -41,6 +39,12 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali državu!'),
+        ),
+      );
     }
   }
 
@@ -61,11 +65,11 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete drzavu?'),
+              Text('Da li ste sigurni da želite da obrišete državu?'),
             ],
           ),
           actions: [
@@ -90,14 +94,14 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
                       const SnackBar(
                         backgroundColor: Colors.red,
                         content: Text(
-                            'Ne možete obrisati drzavu jer postoji grad koji se veže na nju!'),
+                            'Ne možete obrisati državu jer postoji grad koji se veže za nju!'),
                       ),
                     );
                   }
                 }
               },
               child: const Text(
-                'Obrisi',
+                'Obriši',
                 style: TextStyle(color: Colors.red),
               ),
             ),
@@ -115,6 +119,12 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu državu!'),
+        ),
+      );
     }
   }
 
@@ -167,7 +177,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
           const SizedBox(height: 16),
           SizedBox(
             height: 300,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [

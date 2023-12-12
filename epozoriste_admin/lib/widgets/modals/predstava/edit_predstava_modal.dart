@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:epozoriste_admin/models/models.dart';
-import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
 import 'package:epozoriste_admin/providers/vrsta_predstave_provider.dart';
 import 'package:epozoriste_admin/utils/util.dart';
 import 'package:file_picker/file_picker.dart';

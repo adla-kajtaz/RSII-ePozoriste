@@ -39,6 +39,7 @@ class _AddDrzavaModalState extends State<AddDrzavaModal> {
               },
             ),
             TextFormField(
+              maxLength: 3,
               decoration: const InputDecoration(
                 labelText: 'Skraćenica',
               ),
@@ -48,6 +49,9 @@ class _AddDrzavaModalState extends State<AddDrzavaModal> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Ovo polje je obavezno';
+                }
+                if (value.length > 3) {
+                  return 'Skraćenica može sadržavati najviše 3 slova';
                 }
                 return null;
               },

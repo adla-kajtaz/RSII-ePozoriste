@@ -18,8 +18,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
   PozoristeProvider? _pozoristeProvider;
   GradoviProvider? _gradoviProvider;
   List<Pozoriste>? _pozorista;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
   List<Grad> _gradovi = [Grad(gradId: 0, naziv: 'Sve', postanskiBr: '0')];
   Grad? _selectedGrad;
   @override
@@ -33,7 +32,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
   }
 
   void loadGradovi() async {
-    var data = await _gradoviProvider!.get(); // Modify this line
+    var data = await _gradoviProvider!.get();
     setState(() {
       _gradovi = [..._gradovi, ...data];
     });
@@ -44,7 +43,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
       'GradId': _selectedGrad!.gradId == 0 ? null : _selectedGrad!.gradId,
       'Tekst': _searchController.text
     };
-    var data = await _pozoristeProvider!.get(request); // Modify this line
+    var data = await _pozoristeProvider!.get(request);
     setState(() {
       _pozorista = data;
     });
@@ -55,6 +54,12 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali podatke o pozoristu!'),
+        ),
+      );
     }
   }
 
@@ -99,6 +104,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati pozoriste jer se koristi!'),
                       ),
@@ -119,10 +125,15 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
 
   void handleAdd(dynamic request) async {
     await _pozoristeProvider!.insert(request);
-    print('prosao request');
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novo pozoriste!'),
+        ),
+      );
     }
   }
 

@@ -16,8 +16,7 @@ class ObavijestiScreen extends StatefulWidget {
 class _ObavijestiScreenState extends State<ObavijestiScreen> {
   ObavijestProvider? _obavijestProvider;
   List<Obavijest>? _obavijesti;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -27,8 +26,7 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
   }
 
   void loadData() async {
-    var data = await _obavijestProvider!
-        .get({'Tekst': _searchController.text}); // Modify this line
+    var data = await _obavijestProvider!.get({'Tekst': _searchController.text});
     setState(() {
       _obavijesti = data;
     });
@@ -45,11 +43,16 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
       'slika': slika,
       'obavijestKategorijaId': kategorijaId,
       'korisnikId': Authorization.korisnikId,
-      'datumKreiranja': datumKreiranja.toUtc().toIso8601String()
     });
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali obavijest!'),
+        ),
+      );
     }
   }
 
@@ -67,11 +70,11 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete obavijest?'),
+              Text('Da li ste sigurni da želite da obrišete obavijest?'),
             ],
           ),
           actions: [
@@ -94,8 +97,8 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(
-                            'Ne možete obrisati glumca jer već učestvuje u predstavi!'),
+                        backgroundColor: Colors.red,
+                        content: Text('Ne možete obrisati obavijest!'),
                       ),
                     );
                   }
@@ -129,6 +132,12 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu obavijest!'),
+        ),
+      );
     }
   }
 

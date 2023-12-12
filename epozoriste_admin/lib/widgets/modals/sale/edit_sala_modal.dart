@@ -1,6 +1,5 @@
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class EditSalaModal extends StatefulWidget {
   final Sala sala;
@@ -65,60 +64,6 @@ class _EditSalaModalState extends State<EditSalaModal> {
                 return null;
               },
             ),
-            TextFormField(
-              controller: _brojRedovaController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
-                labelText: 'Broj redova',
-              ),
-              onChanged: (String value) {
-                if (value.isEmpty) return;
-                _ukupanBrojSjedistaController.text = (int.parse(value) *
-                        int.parse(_brojSjedistaPoReduController.text))
-                    .toString();
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Ovo polje je obavezno';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _brojSjedistaPoReduController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
-                labelText: 'Broj sjedista po redu',
-              ),
-              onChanged: (String value) {
-                if (value.isEmpty) return;
-                _ukupanBrojSjedistaController.text =
-                    (int.parse(_brojRedovaController.text) * int.parse(value))
-                        .toString();
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Ovo polje je obavezno';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _ukupanBrojSjedistaController,
-              keyboardType: TextInputType.number,
-              enabled: false,
-              decoration: const InputDecoration(
-                labelText: 'Ukupan broj sjedista',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Ovo polje je obavezno';
-                }
-                return null;
-              },
-            ),
           ],
         ),
       ),
@@ -132,13 +77,7 @@ class _EditSalaModalState extends State<EditSalaModal> {
         ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              dynamic request = {
-                'naziv': _nazivController.text,
-                'brRedova': _brojRedovaController.text,
-                'brSjedistaPoRedu': _brojSjedistaPoReduController.text,
-                'brSjedista': _ukupanBrojSjedistaController.text,
-                'pozoristeId': widget.sala.pozoristeId,
-              };
+              dynamic request = {'naziv': _nazivController.text};
               widget.handleEdit(widget.sala.salaId, request);
             }
           },

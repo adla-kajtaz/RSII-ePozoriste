@@ -15,8 +15,7 @@ class VrstePredstaveScreen extends StatefulWidget {
 class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
   VrstaPredstaveProvider? _vrstaPredstaveProvider;
   List<VrstaPredstave>? _vrstePredstave;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -26,8 +25,8 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
   }
 
   void loadData() async {
-    var data = await _vrstaPredstaveProvider!
-        .get({'Tekst': _searchController.text}); // Modify this line
+    var data =
+        await _vrstaPredstaveProvider!.get({'Tekst': _searchController.text});
     setState(() {
       _vrstePredstave = data;
     });
@@ -40,6 +39,12 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali vrstu!'),
+        ),
+      );
     }
   }
 
@@ -61,7 +66,7 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete drzavu?'),
+              Text('Da li ste sigurni da želite da obrišete vrstu?'),
             ],
           ),
           actions: [
@@ -84,6 +89,7 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati vrstu predstave jer postoji predstava vezana za nju.'),
                       ),
@@ -109,6 +115,12 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu vrstu!'),
+        ),
+      );
     }
   }
 
@@ -161,7 +173,7 @@ class _VrstePredstaveScreenState extends State<VrstePredstaveScreen> {
           const SizedBox(height: 16),
           SizedBox(
             height: 300,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [

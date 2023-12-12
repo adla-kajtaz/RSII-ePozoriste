@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/gradovi_provider.dart';
 import 'package:epozoriste_admin/utils/util.dart';
@@ -177,37 +176,6 @@ class _AddPozoristeModalState extends State<AddPozoristeModal> {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: 'Broj broj telefona pozoriste',
-                          hintText: ''),
-                      onChanged: (value) {
-                        brojTelefona = value;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Ovo polje je obavezno';
-                        } else if (!RegExp(patternPhone).hasMatch(value)) {
-                          return 'Format telefona mora biti XXX-XXX-XXX';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: isAktivan,
-                          onChanged: (bool? s) {
-                            setState(() {
-                              isAktivan = s!;
-                            });
-                          },
-                          activeColor: Theme.of(context).primaryColor,
-                        ),
-                        const Text('Aktivan')
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -261,6 +229,37 @@ class _AddPozoristeModalState extends State<AddPozoristeModal> {
                                   ),
                           ),
                         ),
+                      ],
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: 'Broj broj telefona pozoriste',
+                          hintText: ''),
+                      onChanged: (value) {
+                        brojTelefona = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ovo polje je obavezno';
+                        } else if (!RegExp(patternPhone).hasMatch(value)) {
+                          return 'Format telefona mora biti XXX-XXX-XXX';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: isAktivan,
+                          onChanged: (bool? s) {
+                            setState(() {
+                              isAktivan = s!;
+                            });
+                          },
+                          activeColor: Theme.of(context).primaryColor,
+                        ),
+                        const Text('Aktivan')
                       ],
                     ),
                   ],

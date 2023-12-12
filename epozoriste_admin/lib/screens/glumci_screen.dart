@@ -15,8 +15,7 @@ class GlumciScreen extends StatefulWidget {
 class _GlumciScreenState extends State<GlumciScreen> {
   GlumacProvider? _glumacProvider;
   List<Glumac>? _glumci;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -26,8 +25,7 @@ class _GlumciScreenState extends State<GlumciScreen> {
   }
 
   void loadData() async {
-    var data = await _glumacProvider!
-        .get({'Tekst': _searchController.text}); // Modify this line
+    var data = await _glumacProvider!.get({'Tekst': _searchController.text});
     setState(() {
       _glumci = data;
     });
@@ -42,6 +40,12 @@ class _GlumciScreenState extends State<GlumciScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali glumca!'),
+        ),
+      );
     }
   }
 
@@ -66,7 +70,7 @@ class _GlumciScreenState extends State<GlumciScreen> {
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete glumca?'),
+              Text('Da li ste sigurni da želite da obrišete glumca?'),
             ],
           ),
           actions: [
@@ -89,6 +93,7 @@ class _GlumciScreenState extends State<GlumciScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati glumca jer već učestvuje u predstavi!'),
                       ),
@@ -116,6 +121,12 @@ class _GlumciScreenState extends State<GlumciScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novog glumca!'),
+        ),
+      );
     }
   }
 
@@ -168,7 +179,7 @@ class _GlumciScreenState extends State<GlumciScreen> {
           const SizedBox(height: 16),
           SizedBox(
             height: 520,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [

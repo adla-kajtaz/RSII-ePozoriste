@@ -20,8 +20,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
   PredstavaProvider? _predstaveProvider;
   VrstaPredstaveProvider? _vrstaPredstaveProvider;
   List<Predstava>? _predstave;
-  final TextEditingController _searchController =
-      TextEditingController(); // Add this line
+  final TextEditingController _searchController = TextEditingController();
   List<VrstaPredstave> _vrstePredstave = [
     VrstaPredstave(vrstaPredstaveId: 0, naziv: 'Sve')
   ];
@@ -37,7 +36,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
   }
 
   void loadVrste() async {
-    var data = await _vrstaPredstaveProvider!.get(); // Modify this line
+    var data = await _vrstaPredstaveProvider!.get();
     setState(() {
       _vrstePredstave = [..._vrstePredstave, ...data];
     });
@@ -50,7 +49,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
           : _selectedVrstaPredstave?.vrstaPredstaveId,
       'Tekst': _searchController.text
     };
-    var data = await _predstaveProvider!.get(request); // Modify this line
+    var data = await _predstaveProvider!.get(request);
     setState(() {
       _predstave = data;
     });
@@ -61,6 +60,12 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
     if (context.mounted) {
       Navigator.pop(context);
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste modifikovali podatke o predstavi!'),
+        ),
+      );
     }
   }
 
@@ -82,7 +87,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete predstavu?'),
+              Text('Da li ste sigurni da želite da obrišete predstavu?'),
             ],
           ),
           actions: [
@@ -105,6 +110,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text(
                             'Ne možete obrisati predstavu  jer postoji termin za nju!'),
                       ),
@@ -138,6 +144,12 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
         },
       );
       loadData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: const Text('Uspješno ste dodali novu predstavu!'),
+        ),
+      );
     }
   }
 
@@ -276,7 +288,6 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
                               icon: Icon(Icons.format_list_bulleted,
                                   color: Theme.of(context).primaryColor),
                               onPressed: () {
-                                //navigate to ListaGlumaca screen
                                 Navigator.pushNamed(
                                   context,
                                   ListaGlumacaScreen.routeName,

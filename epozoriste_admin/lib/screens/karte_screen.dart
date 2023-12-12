@@ -1,5 +1,6 @@
 import 'package:epozoriste_admin/models/models.dart';
 import 'package:epozoriste_admin/providers/karta_provider.dart';
+import 'package:epozoriste_admin/providers/termin_provider.dart';
 import 'package:epozoriste_admin/widgets/pregled_karata.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class KarteScreen extends StatefulWidget {
 
 class _KarteScreenState extends State<KarteScreen> {
   KartaProvider? _kartaProvider;
+  TerminProvider? _terminProvider;
   List<Karta> _karte = [];
   bool filterAktivan = false;
 
@@ -26,6 +28,7 @@ class _KarteScreenState extends State<KarteScreen> {
   void initState() {
     super.initState();
     _kartaProvider = context.read<KartaProvider>();
+    _terminProvider = context.read<TerminProvider>();
     loadData();
   }
 
@@ -59,6 +62,58 @@ class _KarteScreenState extends State<KarteScreen> {
               brojSjedistaPoRedu: brojSjedistaPoRedu,
               karte: _karte,
             ));
+      },
+    );
+  }
+
+  void openDeleteModal() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Brisanje'),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Da li ste sigurni da želite da obrišete karte?'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Poništi'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  var brisanje =
+                      await _terminProvider!.obrisiKarte(widget.terminId);
+
+                  if (brisanje && context.mounted) {
+                    Navigator.pop(context);
+                    loadData();
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Ne možete obrisati karte jer su neke već kupljene!'),
+                      ),
+                    );
+                  }
+                }
+              },
+              child: const Text(
+                'Obriši',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
       },
     );
   }
@@ -162,7 +217,7 @@ class _KarteScreenState extends State<KarteScreen> {
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
-                    loadData();
+                    openDeleteModal();
                   },
                   child: const Text('Obriši'),
                 ),

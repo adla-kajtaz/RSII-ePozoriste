@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:epozoriste_admin/models/zarada.dart';
 import 'package:epozoriste_admin/providers/base_provider.dart';
 import '../models/models.dart';

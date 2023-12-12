@@ -123,7 +123,6 @@ class _AddSalaModalState extends State<AddSalaModal> {
             if (formKey.currentState!.validate()) {
               dynamic request = {
                 'naziv': naziv,
-                'brSjedista': int.parse(ukupanBrojSjedistaController.text),
                 'brRedova': brojRedova,
                 'brSjedistaPoRedu': brojSjedistaPoRedu
               };

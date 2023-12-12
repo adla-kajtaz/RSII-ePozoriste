@@ -31,6 +31,7 @@ class _EditObavijestModalState extends State<EditObavijestModal> {
   KategorijaObavijest? _selectedKategorijaObavijest;
   List<KategorijaObavijest> _kategorije = [];
   String? _selectedImage;
+
   @override
   void initState() {
     super.initState();

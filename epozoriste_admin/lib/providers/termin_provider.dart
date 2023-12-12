@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:epozoriste_admin/providers/base_provider.dart';
 import '../models/models.dart';
 
@@ -23,6 +22,17 @@ class TerminProvider extends BaseProvider<Termin> {
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       return data.map((x) => fromJson(x)).cast<Termin>().toList();
+    }
+    throw Exception("Error on the server");
+  }
+
+  Future<bool> obrisiKarte(int id) async {
+    var url = "$_baseUrl" + "Termin/obrisiKarte/$id";
+    var headers = createHeaders();
+    var uri = Uri.parse(url);
+    var response = await http!.get(uri, headers: headers);
+    if (isValidResponseCode(response)) {
+      return true;
     }
     throw Exception("Error on the server");
   }

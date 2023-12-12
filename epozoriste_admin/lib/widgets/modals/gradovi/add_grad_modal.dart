@@ -69,6 +69,9 @@ class _AddGradModalState extends State<AddGradModal> {
                 if (value == null || value.isEmpty) {
                   return 'Ovo polje je obavezno';
                 }
+                if (value.length != 5) {
+                  return 'Postanski broj mora imati 5 cifara';
+                }
                 return null;
               },
             ),

@@ -6,11 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-String patternUrl =
-    r'^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$';
-String patternEmail = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
-String patternPhone = r'^\d{3}-\d{3}-\d{3}$';
-
 class AddTerminModal extends StatefulWidget {
   final int salaId;
   final Function handleAdd;

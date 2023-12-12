@@ -36,7 +36,7 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
       'PredstavaId': widget.predstavaId,
     };
 
-    var data = await _provider!.get(request); // Modify this line
+    var data = await _provider!.get(request);
     setState(() {
       _glumci = data;
     });
@@ -46,6 +46,7 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
     if (_glumci!.length == 1) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Colors.red,
           content: Text('Predstava mora imati najmanje jednog glumca!'),
         ),
       );
@@ -55,11 +56,11 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Brisanje '),
+          title: const Text('Brisanje'),
           content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Da li ste sigurni da zelite da obrisete glumca?'),
+              Text('Da li ste sigurni da želite da obrišete glumca?'),
             ],
           ),
           actions: [
@@ -82,6 +83,7 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
+                        backgroundColor: Colors.red,
                         content: Text('Ne možete da obrišete glumca!'),
                       ),
                     );
@@ -128,7 +130,7 @@ class _GradoviScreenState extends State<ListaGlumacaScreen> {
           const SizedBox(height: 16),
           SizedBox(
             height: 300,
-            width: double.infinity, // Set the width to take 100% of the screen
+            width: double.infinity,
             child: SingleChildScrollView(
               child: DataTable(
                 columns: const [
