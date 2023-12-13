@@ -3,13 +3,14 @@ using ePozoriste.Model;
 using ePozoriste.Subscriber;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args).ConfigureServices((hostContext, services) =>
+using System.Runtime.InteropServices;
+static IHostBuilder CreateHostBuilder() =>
+    Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<RabbitMQHostedService>();
     });
 
-CreateHostBuilder(args).Build().Run();
+CreateHostBuilder().Build().Run();
 public class RabbitMQHostedService : IHostedService
 {
     private IBus _bus;
@@ -19,20 +20,33 @@ public class RabbitMQHostedService : IHostedService
     {
         _service = new EmailService();
         _bus = RabbitHutch.CreateBus("host=rabbitMQ");
+        while (true)
+        {
+            try
+            {
+                _bus.PubSub.Subscribe<KupovinaNotifikacija>("Nova_kupovina", HandleTextMessage);
+                Console.WriteLine("Subscribe successful,listening for messages.");
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Subscribe failed,retrying...");
+                Thread.Sleep(5000);
+            }
+        }
     }
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _bus.PubSub.Subscribe<KupovinaNotifikacija>("Nova_kupovina", HandleTextMessage);
-        Console.WriteLine("Listening for messages.");
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _bus.Dispose();
+        //console log "Dispoing"
+        Console.WriteLine("Stop async");
         return Task.CompletedTask;
     }
-
     private Task HandleTextMessage(KupovinaNotifikacija entity)
     {
         Console.WriteLine($"Purchase received: {entity?.KupovinaNotifikacijaId}, Predstava: {entity?.NazivPredstave}, Email: {entity.Email}");
