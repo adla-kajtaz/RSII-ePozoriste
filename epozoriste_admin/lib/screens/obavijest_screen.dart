@@ -1,4 +1,5 @@
 import 'package:epozoriste_admin/models/models.dart';
+import 'package:epozoriste_admin/providers/kategorija_obavijest.dart';
 import 'package:epozoriste_admin/providers/obavijest_provider.dart';
 import 'package:epozoriste_admin/utils/util.dart';
 import 'package:epozoriste_admin/widgets/modals/obavijesti/add_obavijest_modal.dart';
@@ -15,18 +16,39 @@ class ObavijestiScreen extends StatefulWidget {
 
 class _ObavijestiScreenState extends State<ObavijestiScreen> {
   ObavijestProvider? _obavijestProvider;
+  KategorijaObavijestProvider? _kategorijaProvider;
   List<Obavijest>? _obavijesti;
+  List<KategorijaObavijest> _kategorije = [
+    KategorijaObavijest(obavijestKategorijaId: 0, naziv: 'Sve')
+  ];
+  KategorijaObavijest? _selectedKategorija;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _obavijestProvider = context.read<ObavijestProvider>();
+    _kategorijaProvider = context.read<KategorijaObavijestProvider>();
+    _selectedKategorija = _kategorije[0];
+    loadKategorije();
     loadData();
   }
 
+  void loadKategorije() async {
+    var data = await _kategorijaProvider!.get();
+    setState(() {
+      _kategorije = [..._kategorije, ...data];
+    });
+  }
+
   void loadData() async {
-    var data = await _obavijestProvider!.get({'Tekst': _searchController.text});
+    dynamic request = {
+      'ObavijestKategorijaId': _selectedKategorija!.obavijestKategorijaId == 0
+          ? null
+          : _selectedKategorija!.obavijestKategorijaId,
+      'Tekst': _searchController.text
+    };
+    var data = await _obavijestProvider!.get(request);
     setState(() {
       _obavijesti = data;
     });
@@ -34,8 +56,6 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
 
   void handleEdit(int id, String naslov, String podnaslov, String sadrzaj,
       int kategorijaId, String slika, DateTime datumKreiranja) async {
-    //doraditi da salje naslov pod naslov etc
-
     await _obavijestProvider!.update(id, {
       'naslov': naslov,
       'podnaslov': podnaslov,
@@ -172,6 +192,33 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
                   ),
                 ),
                 const SizedBox(width: 16.0),
+                Expanded(
+                  child: DropdownButtonFormField<KategorijaObavijest>(
+                    decoration: InputDecoration(
+                      labelText: 'Kategorija',
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                    value: _selectedKategorija,
+                    onChanged: (KategorijaObavijest? kat) {
+                      setState(() {
+                        _selectedKategorija = kat!;
+                      });
+                    },
+                    items: _kategorije
+                        .map<DropdownMenuItem<KategorijaObavijest>>(
+                            (KategorijaObavijest k) {
+                      return DropdownMenuItem<KategorijaObavijest>(
+                        value: k,
+                        child: Text(k.naziv),
+                      );
+                    }).toList(),
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     loadData();

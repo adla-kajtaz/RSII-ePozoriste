@@ -187,9 +187,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   Authorization.username =
                                       korisnik!.korisnickoIme;
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Profil je uspješno ažuriran!'),
+                                    SnackBar(
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                      content: const Text(
+                                          'Profil je uspješno ažuriran!'),
                                     ),
                                   );
                                 }
