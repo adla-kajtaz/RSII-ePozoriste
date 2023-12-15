@@ -16,6 +16,7 @@ namespace ePozoriste.Model.Requests
         public string Adresa { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [RegularExpression("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$")]
         public string Webstranica { get; set; }
 
         [Required(AllowEmptyStrings = false)]

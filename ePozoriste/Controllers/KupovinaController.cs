@@ -29,5 +29,12 @@ namespace ePozoriste.Controllers
         {
             return _service.GetByKorisnikId(id);
         }
+
+        [Authorize]
+        [HttpPatch()]
+        public Model.Kupovina ChangeTicketStatus([FromBody] KartaChangeStatus request)
+        {
+            return _service.ChangeTicketStatus(request);
+        }
     }
 }

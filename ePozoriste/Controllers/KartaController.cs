@@ -15,13 +15,6 @@ namespace ePozoriste.Controllers
         }
 
         [Authorize]
-        [HttpPatch("{id}")]
-        public Model.Karta changeStatus(int id, int KupovinaId)
-        {
-            return _service.ChangeStatus(id, KupovinaId);
-        }
-
-        [Authorize]
         [HttpGet("getByTerminId/{id}")]
         public IEnumerable<Model.Karta> GetByTerminId(int id)
         {

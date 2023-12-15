@@ -1,29 +1,18 @@
 ﻿using AutoMapper;
-using EasyNetQ;
 using ePozoriste.Model.Requests;
 using ePozoriste.Model.SearchObjects;
 using ePozoriste.Services.BaseService;
 using ePozoriste.Services.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using ePozoriste.Model;
 
 namespace ePozoriste.Services
 {
     public class KartaService : BaseCRUDService<Model.Karta, Database.Kartum, KartaSearchObject, KartaInsertRequest, KartaInsertRequest>, IKartaService
     {
-        private readonly INotificationProducer _notificationProducer;
 
-        public KartaService(ePozoristeContext context, IMapper mapper, INotificationProducer notificationProducer) : base(context, mapper)
+        public KartaService(ePozoristeContext context, IMapper mapper) : base(context, mapper)
         {
-            _notificationProducer = notificationProducer;
+
         }
 
         public override IQueryable<ePozoriste.Services.Database.Kartum> AddInclude(IQueryable<ePozoriste.Services.Database.Kartum> query, KartaSearchObject search = null)
@@ -59,32 +48,6 @@ namespace ePozoriste.Services
             }
 
             _context.SaveChanges();
-            return _mapper.Map<Model.Karta>(entity);
-        }
-
-        public Model.Karta ChangeStatus(int id, int KupovinaId)
-        {
-            var entity = _context.Karta.Find(id);
-            var kupovina = _context.Kupovinas.Include(x=>x.Korisnik).Include(x=>x.Termin).ThenInclude(x=>x.Predstava).FirstOrDefault(x=> x.KupovinaId == KupovinaId);
-            if (entity == null)
-                return null;
-            else
-            {
-                entity.Aktivna = false;
-                entity.KupovinaId = KupovinaId;
-                if (kupovina != null)
-                    kupovina.Placena = true;
-            }
-            _context.SaveChanges();
-
-            KupovinaNotifikacija kupovinaNot = new KupovinaNotifikacija
-            {
-                KupovinaNotifikacijaId = kupovina.KupovinaId,
-                NazivPredstave = kupovina.Termin.Predstava.Naziv,
-                Email = kupovina.Korisnik.Email
-            };
-            _notificationProducer.SendingObject(kupovinaNot);
-
             return _mapper.Map<Model.Karta>(entity);
         }
 

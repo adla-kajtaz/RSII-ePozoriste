@@ -15,12 +15,14 @@ namespace ePozoriste.Services
     public class KupovinaService : BaseCRUDService<Model.Kupovina, Database.Kupovina, KupovinaSearchObject, KupovinaInsertRequest, KupovinaInsertRequest>, IKupovinaService
     {
         IKartaService _kartaService { get; set; }
+        private readonly INotificationProducer _notificationProducer;
         public StripeService _stripeService { get; set; }
 
-        public KupovinaService(ePozoristeContext context, IMapper mapper, IKartaService kartaService, StripeService stripeService) : base(context, mapper)
+        public KupovinaService(ePozoristeContext context, IMapper mapper, IKartaService kartaService, StripeService stripeService, INotificationProducer notificationProducer) : base(context, mapper)
         {
             _kartaService = kartaService;
             _stripeService = stripeService;
+            _notificationProducer = notificationProducer;
         }
 
         public override IQueryable<ePozoriste.Services.Database.Kupovina> AddInclude(IQueryable<ePozoriste.Services.Database.Kupovina> query, KupovinaSearchObject search = null)
@@ -67,6 +69,35 @@ namespace ePozoriste.Services
             var entity = _context.Kupovinas.Include(x => x.Termin).Include(x => x.Termin.Predstava).Include(x => x.Termin.Predstava.VrstaPredstave).Include(x => x.Termin.Sala).Include(x => x.Termin.Sala.Pozoriste).Include(x => x.Termin.Sala.Pozoriste.Grad).Include(x => x.Termin.Sala.Pozoriste.Grad.Drzava).Include(x => x.Korisnik).Where(x => x.KorisnikId == id).Where(x=>x.Placena == true).OrderByDescending(k=>k.DatumKupovine).AsQueryable();
             var list = entity.ToList();
             return _mapper.Map<IList<Model.Kupovina>>(list);
+        }
+
+        public Model.Kupovina ChangeTicketStatus(KartaChangeStatus kcs)
+        {
+            var karte = _context.Karta.Where(x=> kcs.ListaKarta.Contains(x.KartaId));
+            var kupovina = _context.Kupovinas.Include(x=>x.Korisnik).Include(x=>x.Termin).ThenInclude(x=>x.Predstava).FirstOrDefault(x=> x.KupovinaId == kcs.KupovinaId);
+            if (karte == null)
+                return null;
+            else
+            {
+                foreach(Kartum karta in karte)
+                {
+                    karta.Aktivna = false;
+                    karta.KupovinaId = kcs.KupovinaId;
+                }
+                if (kupovina != null)
+                    kupovina.Placena = true;
+            }
+            _context.SaveChanges();
+
+            Model.KupovinaNotifikacija kupovinaNot = new Model.KupovinaNotifikacija
+            {
+                KupovinaNotifikacijaId = kupovina.KupovinaId,
+                NazivPredstave = kupovina.Termin.Predstava.Naziv,
+                Email = kupovina.Korisnik.Email
+            };
+             _notificationProducer.SendingObject(kupovinaNot);
+
+            return _mapper.Map<Model.Kupovina>(kupovina);
         }
     }
 }
