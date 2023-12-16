@@ -15,10 +15,13 @@ public class RabbitMQHostedService : IHostedService
 {
     private IBus _bus;
     private EmailService _service;
+    private EmailSendGridService _sendGridService;
+
 
     public RabbitMQHostedService()
     {
         _service = new EmailService();
+        _sendGridService = new EmailSendGridService();
         _bus = RabbitHutch.CreateBus("host=rabbitMQ");
         while (true)
         {
@@ -50,6 +53,7 @@ public class RabbitMQHostedService : IHostedService
     private Task HandleTextMessage(KupovinaNotifikacija entity)
     {
         Console.WriteLine($"Purchase received: {entity?.KupovinaNotifikacijaId}, Predstava: {entity?.NazivPredstave}, Email: {entity.Email}");
+        _sendGridService.Send("Nova kupovina", $"Kupili ste karte za predstavu {entity.NazivPredstave}.", entity.Email, entity.Email);
         _service.SendEmailAsync(entity.Email, "Nova kupovina na ePozoristu!", $"Kupili ste karte za predstavu {entity.NazivPredstave}.");
         return Task.CompletedTask;
     }
