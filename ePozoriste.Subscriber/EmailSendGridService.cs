@@ -16,7 +16,7 @@ namespace ePozoriste.Subscriber
 
         public EmailSendGridService()
         {
-            _apiKey = "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"; //Add apiKey
+            _apiKey = "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"; //Add apiKey
             _client = new SendGridClient(_apiKey);
             _fromAddress = new EmailAddress("epozoriste@outlook.com", "epozoriste");
         }
