@@ -54,6 +54,11 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+    _selectedKategorija = _kategorije[0];
+  }
+
   void handleEdit(int id, String naslov, String podnaslov, String sadrzaj,
       int kategorijaId, String slika, DateTime datumKreiranja) async {
     await _obavijestProvider!.update(id, {
@@ -151,6 +156,7 @@ class _ObavijestiScreenState extends State<ObavijestiScreen> {
     await _obavijestProvider!.insert(request);
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

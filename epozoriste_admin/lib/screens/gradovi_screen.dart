@@ -52,6 +52,11 @@ class _GradoviScreenState extends State<GradoviScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+    _selectedDrzava = _drzave[0];
+  }
+
   void handleEdit(int id, String naziv, String skracenica, int drzavaId) async {
     await _gradoviProvider!.update(id, {
       'naziv': naziv,
@@ -138,6 +143,7 @@ class _GradoviScreenState extends State<GradoviScreen> {
     });
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

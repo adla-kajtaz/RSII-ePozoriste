@@ -27,7 +27,7 @@ class _AddKategorijaObavijestModalState
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Naziv kategorija',
+                labelText: 'Naziv kategorije',
               ),
               onChanged: (value) {
                 naziv = value;

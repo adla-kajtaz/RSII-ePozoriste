@@ -38,6 +38,10 @@ class _SaleScreenState extends State<SaleScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = "";
+  }
+
   void handleEdit(int id, dynamic request) async {
     await _saleProvider!.update(id, request);
     if (context.mounted) {
@@ -116,6 +120,7 @@ class _SaleScreenState extends State<SaleScreen> {
     await _saleProvider!.insert(request);
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

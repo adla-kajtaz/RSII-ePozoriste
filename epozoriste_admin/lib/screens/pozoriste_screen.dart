@@ -49,6 +49,10 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+  }
+
   void handleEdit(int id, dynamic request) async {
     await _pozoristeProvider!.update(id, request);
     if (context.mounted) {
@@ -127,6 +131,7 @@ class _PozoristeScreenState extends State<PozoristeScreen> {
     await _pozoristeProvider!.insert(request);
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

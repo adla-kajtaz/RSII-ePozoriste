@@ -64,7 +64,8 @@ class _AddObavijestModalState extends State<AddObavijestModal> {
           key: formKey,
           child: Row(
             children: [
-              Expanded(
+              SizedBox(
+                width: 300,
                 child: Column(
                   children: [
                     TextFormField(

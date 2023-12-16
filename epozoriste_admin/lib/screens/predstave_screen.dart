@@ -55,6 +55,11 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+    _selectedVrstaPredstave = _vrstePredstave[0];
+  }
+
   void handleEdit(int id, dynamic request) async {
     await _predstaveProvider!.update(id, request);
     if (context.mounted) {
@@ -143,6 +148,7 @@ class _PredstaveScreenState extends State<PredstaveScreen> {
           );
         },
       );
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

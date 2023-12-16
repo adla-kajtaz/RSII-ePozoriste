@@ -34,6 +34,10 @@ class _KategorijeObavijestiScreenState
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+  }
+
   void handleEdit(int id, String naziv) async {
     await _kategorijaObavijestProvider!.update(id, {
       'naziv': naziv,
@@ -118,6 +122,7 @@ class _KategorijeObavijestiScreenState
     });
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

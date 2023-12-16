@@ -176,6 +176,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
         return AddTerminModal(
           salaId: widget.salaId,
           handleAdd: () => {
+            resetState(),
             loadData(),
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

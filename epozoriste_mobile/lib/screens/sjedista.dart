@@ -55,9 +55,11 @@ class _SjedistaState extends State<Sjedista> {
     );
     try {
       var result = await Stripe.instance.presentPaymentSheet();
-      for (Karta item in izabranaSjedista!) {
-        await _kartaProvider!.changeStatus(item.kartaId, kupovinaId);
-      }
+      dynamic request = {
+        'kupovinaId': kupovinaId,
+        'listaKarata': izabranaSjedista?.map((x) => x.kartaId).toList(),
+      };
+      var kupovina = await _kupovinaProvider!.changeStatus(request);
       Navigator.pushNamed(context, UspjesnaKupovina.routeName);
     } catch (e) {
       print(e.toString());

@@ -31,6 +31,10 @@ class _GlumciScreenState extends State<GlumciScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+  }
+
   void handleEdit(int id, String ime, String prezime) async {
     await _glumacProvider!.update(id, {
       'ime': ime,
@@ -120,6 +124,7 @@ class _GlumciScreenState extends State<GlumciScreen> {
     });
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

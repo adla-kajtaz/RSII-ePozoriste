@@ -31,6 +31,10 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
     });
   }
 
+  void resetSearch() {
+    _searchController.text = '';
+  }
+
   void handleEdit(int id, String naziv, String skracenica) async {
     await _drzavaProvider!.update(id, {
       'naziv': naziv,
@@ -118,6 +122,7 @@ class _DrzaveScreenState extends State<DrzaveScreen> {
     });
     if (context.mounted) {
       Navigator.pop(context);
+      resetSearch();
       loadData();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
