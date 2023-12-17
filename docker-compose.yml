@@ -62,6 +62,8 @@ services:
       - RABBITMQ_VIRTUALHOST=/
       - OUTLOOK_MAIL=epozoriste@outlook.com
       - OUTLOOK_PASS=Test-Test123!
+      - EncryptedApiKey=Q1vV48KBIqHUaZENVYLno8tOypbKSyUeCEl06219o/0kAZGJapGPnJ37nCqq8prs7qe0GlsDI6Thjc7TT17IG9P9YdVM7NR18JX49XmO/G4=
+      - EncryptionKey=73Gh30kxP4j7W2nX5Rf8T3vZ20QqM1uY
     depends_on:
       - rabbitMQ
       - epozoriste-sql
