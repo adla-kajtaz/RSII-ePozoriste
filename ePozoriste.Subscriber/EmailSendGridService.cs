@@ -17,8 +17,8 @@ namespace ePozoriste.Subscriber
 
         public EmailSendGridService()
         {
-            var encryptedApiKey = Environment.GetEnvironmentVariable("EncryptedApiKey");
-            var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
+            var encryptedApiKey = Environment.GetEnvironmentVariable("EncryptedApiKey") ?? "Q1vV48KBIqHUaZENVYLno8tOypbKSyUeCEl06219o/0kAZGJapGPnJ37nCqq8prs7qe0GlsDI6Thjc7TT17IG9P9YdVM7NR18JX49XmO/G4=";
+            var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey") ?? "73Gh30kxP4j7W2nX5Rf8T3vZ20QqM1uY";
             _apiKey = EncryptionHelper.DecryptString(encryptedApiKey, encryptionKey);
             _client = new SendGridClient(_apiKey);
             _fromAddress = new EmailAddress("epozoriste@outlook.com", "epozoriste");
