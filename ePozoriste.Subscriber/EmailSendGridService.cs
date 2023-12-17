@@ -1,4 +1,5 @@
-﻿using SendGrid;
+﻿using Microsoft.Extensions.Configuration;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace ePozoriste.Subscriber
 
         public EmailSendGridService()
         {
-            _apiKey = "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"; //Add apiKey
+            var encryptedApiKey = Environment.GetEnvironmentVariable("EncryptedApiKey");
+            var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
+            _apiKey = EncryptionHelper.DecryptString(encryptedApiKey, encryptionKey);
             _client = new SendGridClient(_apiKey);
             _fromAddress = new EmailAddress("epozoriste@outlook.com", "epozoriste");
         }
