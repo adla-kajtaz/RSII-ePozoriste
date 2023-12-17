@@ -290,10 +290,8 @@ class _SjedistaState extends State<Sjedista> {
                             showMessage("Morate izabrati bar jedno sjediste");
                           else {
                             Map novaKupovina = {
-                              'kolicina': izabranaSjedista?.length,
                               'cijena': _termin.cijenaKarte *
                                   izabranaSjedista!.length,
-                              "datumKupovine": "2023-10-01T10:57:10.439Z",
                               "korisnikId": korisnikId,
                               "terminId": _termin.terminId,
                               "karte": izabranaSjedista!
