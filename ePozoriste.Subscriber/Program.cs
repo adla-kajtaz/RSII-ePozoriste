@@ -24,7 +24,6 @@ public class RabbitMQHostedService : IHostedService
     {
         _service = new EmailService();
         _sendGridService = new EmailSendGridService();
-        return;
         _bus = RabbitHutch.CreateBus("host=rabbitMQ");
         while (true)
         {
